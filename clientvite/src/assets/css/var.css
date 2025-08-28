@@ -1,0 +1,40 @@
+*{
+  box-sizing: border-box;
+  margin:0;
+  padding : 0;
+
+  box-sizing : border-box;
+  font-family: 'PT Sans',sans-serif ;
+  --primary : rgb(13, 13, 243);
+   --var-light-mode :#DFD0B8;
+  --var-dark-mode :  #504B38;
+
+  --var-text-light:  #504B38;
+  --var-text-dark:    #DFD0B8;
+
+
+  --var-body-data-light:var(--var-dark-mode);
+  --var-body-data-dark:var(--var-light-mode);
+
+  --var-body-data-title-light:rgb(245, 222, 20) ;
+  --var-body-data-title-dark:rgb(15, 84, 223) ;
+
+  --var-body-data-text-light:rgb(13, 33, 185) ;
+  --var-body-data-text-dark:rgb(223, 15, 60) ;
+
+  --var-card-light :#ece1cf;
+  --var-card-dark :#eb9763;
+  
+  --var-card-title-light :#482e04;
+  --var-card-title-dark :#f7f6fe;
+
+  --var-form-bg-light:var(  --var-dark-mode );
+
+  --var-form-bg-dark :var(  --var-light-mode );
+
+  --var-form-text-light:var(--var-light-mode );
+  --var-form-text-dark:var(--var-dark-mode );
+
+  --navbar3-header-shadow : 7px 5px 15px -3px rgb(173, 15, 15), 0 4px 6px -2px blue;
+  
+}

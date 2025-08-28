@@ -1,0 +1,21 @@
+
+.thebasics{
+    background-color: lightcoral;
+    padding :10px 10px;
+    
+
+
+
+}
+.area1{
+    background-color: lightgray;
+    border-radius: 10px;
+    padding : 10px 1rem;
+    margin-bottom: 10px;
+}
+.area2{
+    background-color: rgb(99, 194, 226);
+    border-radius: 10px;
+    padding : 10px 1rem;
+    margin-bottom: 10px;
+}

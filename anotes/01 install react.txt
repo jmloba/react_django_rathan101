@@ -1,0 +1,12 @@
+eresolve install add --legacy-peer-deps
+not to use npx
+go to https://vitejs.dev
+https://vite.dev/guide/
+
+-go to main root  - project name  clientvite / create react project
+npm create vite@latest
+
+-go to clientvite terminal
+npm install 
+npm run dev
+npm i react-bootstrap
