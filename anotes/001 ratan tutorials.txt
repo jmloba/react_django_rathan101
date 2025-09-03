@@ -1,3 +1,4 @@
 https://www.youtube.com/watch?v=5FFqW7D5W20&t=27464s
 
-32:25
+2:32:00 conditional rendering
+3:19:00 learn forms

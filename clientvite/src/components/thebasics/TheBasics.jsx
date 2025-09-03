@@ -12,9 +12,16 @@ import ChildA from './ChildA';
 
 import { createContext } from 'react';
 import LearnUseRef from './LearnUseRef';
+import LearnCustomHooks from './LearnCustomHooks';
+import LearnConditionalRendering from './LearnConditionalRendering';
+import LearnMapFunctions from './LearnMapFunctions';
+import LearnInLineCSS from './LearnInLineCSS';
+import LearnForms from './LearnForms';
 
 const StockContext = createContext()
 const UserContext = createContext()
+
+
 
 const TheBasics = () => {
 
@@ -50,18 +57,22 @@ const TheBasics = () => {
       <LearnCounterApp/>
       <LearnUseEffects/>
       <LearnUseMemo/>
-
-       <StockContext.Provider value={{name,age}} >
-        
+      <StockContext.Provider value={{name,age}} >
         <UserContext.Provider value ={{user,setUser}}  >
           <ChildA  />
         </UserContext.Provider>
         
       </StockContext.Provider>
-
-      
+       <LearnUseRef />
+      <LearnCustomHooks/>      
+      <LearnConditionalRendering/>
+      <LearnMapFunctions/>
+      <LearnInLineCSS/>
        ------   */}
-       <LearnUseRef/>
+       <LearnForms/>
+   
+       
+
 
       
 
