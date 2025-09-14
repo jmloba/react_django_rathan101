@@ -7,7 +7,6 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('gender', views.GenderViewset, basename='gender')
 router.register('employees', views.EmployeeViewset, basename='employee')
-
 router.register('department', views.DepartmentViewset, basename='department')
 
 
