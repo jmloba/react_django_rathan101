@@ -7,10 +7,25 @@
 
 }
 .bg-light-dark{
-  background-color: var(--varbackground);
+  background-color: var(--var-background);
 
 
 }
 .container {
-  flex: 1}
+  flex: 1
+}
+.container-1{
   
+  background-color: rgb(134, 202, 95);
+  padding-top:1rem;
+  
+
+}  
+.container.container-1{
+  color : black;
+}
+
+h3.text-light.text-center.form-title {
+color: brown !important;
+  
+}
