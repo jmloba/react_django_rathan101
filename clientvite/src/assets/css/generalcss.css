@@ -11,6 +11,12 @@
 
 
 }
+.navbar{
+  
+  background-color: rgba(42, 25, 173, 0.313);
+  max-height :fit-content;
+}
+
 .container {
   flex: 1
 }

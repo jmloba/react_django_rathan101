@@ -3,3 +3,13 @@ https://www.youtube.com/watch?v=5FFqW7D5W20&t=27464s
 2:32:00 conditional rendering
 3:19:00 learn forms
 4:23:00 footer g
+
+6:18:00 saving access token and refresh token
+-> check  login.jsx
+
+useContext HOok
+note : in getting the access token from local localStorage
+use !! => if there is a value from accesstoken  !!(double exclamation converts to boolean)
+    const[ isLoggedIn,setIsLoggedIn] =useState(
+        !!localStorage.getItem('accessToken')
+    )
