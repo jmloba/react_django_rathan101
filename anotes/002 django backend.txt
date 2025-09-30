@@ -31,6 +31,9 @@ pymysql.install_as_MySQLdb()
 python manage.py startapp app_accounts
 python manage.py startapp app_products
 python manage.py startapp app_employees
+python manage.py startapp app_todo
+
+
 pip install django-rest-auth
 pip install django-filter
 pip install django-cors-headers

@@ -13,9 +13,12 @@ const Login = () => {
     const [loading , setLoading] = useState(false)
     const navigate = useNavigate()
     const [errors,setErrors] = useState('')
+    const { 
+      isLoggedIn,setIsLoggedIn,
+      theme,setTheme,
+      loggedInUser,setLoggedInUser
 
-
-    const { isLoggedIn,setIsLoggedIn} = useContext(AuthContext)
+    } = useContext(AuthContext)
 
     const handleLogin = async (e)=>{
       e.preventDefault()
@@ -30,9 +33,12 @@ const Login = () => {
         localStorage.setItem('accessToken',response.data.access)
         localStorage.setItem('refreshToken',response.data.refresh)
         setIsLoggedIn(true)
+        setLoggedInUser(username)
+        console.log (loggedInUser)
         console.log('response is :', response.data)
         console.log('logged in successfully')
         navigate('/')
+        // console.log('value of isloggedin:', isLoggedIn)
         
       }catch(error){
         console.error('response is :', error.response.data)
@@ -60,17 +66,6 @@ const Login = () => {
             </div>
             {errors && 
               <div className='alert alert-danger'>{errors}</div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             }
 
             {loading ?(

@@ -9,10 +9,12 @@ class GenderSerializers(serializers.ModelSerializer):
     fields = '__all__'
 
 
+
 class EmployeeSerializers(serializers.ModelSerializer):
   class Meta:
     model = Employee
-    fields = '__all__'
+    # fields = '__all__'
+    fields=['id','emp_name','deptname','email','gender','image']
 
 class DepartmentSerializers(serializers.ModelSerializer):
   class Meta:

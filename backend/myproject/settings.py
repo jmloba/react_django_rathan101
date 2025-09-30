@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'app_api',
     'app_employees',
     'api_ViewSetsEmployees',
+    'app_todo',
+    'app_students',
+    'app_store',
+    'app_condo',
 
 ]
 
@@ -162,6 +166,7 @@ REST_FRAMEWORK ={
     
 }
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    # "ACCESS_TOKEN_LIFETIME": timedelta(seconds=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }

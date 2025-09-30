@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Employee, Department, Gender
 
+
+
 class DepartmentAdmin(admin.ModelAdmin):
   list_display=('deptname','created','modified')
   ordering=('deptname',)

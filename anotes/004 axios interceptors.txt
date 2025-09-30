@@ -1,0 +1,2 @@
+request interceptors = are used to modify request before sending to server
+response interceptors = used to handle responses before reaching frontend

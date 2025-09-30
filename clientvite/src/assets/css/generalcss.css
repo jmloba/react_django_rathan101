@@ -15,18 +15,25 @@
   
   background-color: rgba(42, 25, 173, 0.313);
   max-height :fit-content;
+  padding :1px 2rem;
 }
 
 .container {
-  flex: 1
+  flex: 1;
+  background-color: aqua;
+
 }
 .container-1{
   
   background-color: rgb(134, 202, 95);
   padding-top:1rem;
-  
-
 }  
+.container-2{
+  flex:1;
+  padding : 2rem;
+  background-color: rgb(178, 173, 167);
+  color : blue;
+}
 .container.container-1{
   color : black;
 }
@@ -34,4 +41,93 @@
 h3.text-light.text-center.form-title {
 color: brown !important;
   
+
+}
+.main-body{
+  background-color: rgb(207, 217, 190);
+  margin :.5em 1em; 
+  padding:1em 1em;
+  flex:1;
+}
+.img-books{
+  width:10rem;
+}
+.card{
+  /* width:30px; */
+  margin: 10px 10px;
+  padding : 1rem 1rem;
+  background-color: antiquewhite;
+}
+.card-body{
+  display : block;
+  justify-content: center;
+
+}
+.card-image-area{
+  display : block;
+  background-color: lightpink;
+
+}
+.card-img img{
+  width: 10rem;
+}
+
+
+.card-details{
+  display : block;
+  text-align : left;
+
+}
+.menu-option{
+  background-color: #ffe4c4;
+
+}
+.data-list{
+  display : flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  
+
+}
+.datatable-main{
+  background-color: rgb(130, 239, 165);
+  padding : 0.5rem 5em;
+}
+.search-datatable{
+  display : flex;
+  justify-content: right;
+  margin-bottom : 1rem;
+
+}
+.Btn{
+  padding : 3px 10px;
+  border-color: none;
+  margin : 0px 2px;
+  border-radius: 5px;
+  cursor : pointer  ;
+  color: white
+}
+.Btn:hover{
+  opacity : 0.8;
+  background-color: rgb(163, 210, 10);
+  color : rgb(239, 241, 116)
+} 
+.readBtn{
+  background-color: rgb(14, 98, 208);
+}
+.editBtn{
+  background-color: rgb(46, 208, 14);
+}
+.deleteBtn{
+  background-color: rgb(222, 83, 48);
+}
+.searchBtn{
+  padding : 5px 15px;
+  border-color: none;
+  margin : 0px 2px;
+  border-radius: 5px;
+  cursor : pointer  ;
+  color: white;
+  background-color: rgb(14, 98, 208);
 }

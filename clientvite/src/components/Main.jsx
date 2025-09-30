@@ -13,7 +13,7 @@ const Main = () => {
     <div className="p-5 text-center bg-light-dark">
         <h1 className="mb-3 h2">Welcome to React with Django</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas quasi aut asperiores, dolorum, earum natus omnis voluptatem numquam quam, corporis repudiandae officia facilis ipsam! Provident, veniam.</p>
-        <Button text='Login xx' class='btn-info'/>
+        <Button text='Login xx' class='btn-info' url='/dashboard' />
         </div>
         
 </div>

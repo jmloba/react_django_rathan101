@@ -13,3 +13,8 @@ use !! => if there is a value from accesstoken  !!(double exclamation converts t
     const[ isLoggedIn,setIsLoggedIn] =useState(
         !!localStorage.getItem('accessToken')
     )
+
+
+
+creation of record using APIView 
+/store/masterfile/
