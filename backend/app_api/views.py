@@ -17,6 +17,11 @@ from app_store.serializers import MasterFileSerializer
 from app_condo.models import CondoBill
 from app_condo.serializers import CondoBillSerializers
 
+from app_products.models import Products , Product_Category,TempEntries
+from app_products.serializers import ProductSerializers, ProductCategorySerializers ,TempEntriesSerializers
+from app_products.filters import ProductsFilter, TempEntriesFilter
+
+
 @api_view(['GET','POST'])
 def studentsView(request):
   # students=Student.objects.all()
@@ -97,4 +102,36 @@ class BookViewSet(viewsets.ModelViewSet):
     Books.objects.create(title= title, cover=cover)
     return HttpResponse({'message':'Book created'}, status = 200)
 
+class ProductCategoryViewSet(viewsets.ModelViewSet):
+  queryset = Product_Category.objects.all().order_by('category_name')
+  serializer_class = ProductCategorySerializers
 
+  def post(self, request, *args,  **kwargs):
+    category_id = request.data['category_id']
+    category_name = request.data['category_name']
+    Product_Category.objects.create(
+      category_id= category_id, 
+      category_name=category
+      ) 
+    return HttpResponse({'message':'Product Category created'}, status = 200)
+
+class ProductCategoryViewSet(viewsets.ModelViewSet):
+  queryset = Product_Category.objects.all().order_by('category_name')
+  serializer_class = ProductCategorySerializers
+
+  def post(self, request, *args,  **kwargs):
+    category_name = request.data['category_name']
+    Product_Category.objects.create(
+      category_name=category_name
+      ) 
+    return HttpResponse({'message':'Product Category created'}, status = 200)  
+
+class ProductViewSet(viewsets.ModelViewSet):
+  queryset = Products.objects.all().order_by('product_name')
+  serializer_class = ProductSerializers
+  filterset_class = ProductsFilter
+
+class TempEntriesViewSet(viewsets.ModelViewSet):
+  queryset = TempEntries.objects.all()
+  serializer_class = TempEntriesSerializers
+  filterset_class = TempEntriesFilter

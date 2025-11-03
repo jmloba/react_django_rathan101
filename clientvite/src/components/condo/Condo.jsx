@@ -59,8 +59,7 @@ const Condo = () => {
               return(
                 <>
                 <div className="table-container">
-                <table className="table table-bordered">
-                </table>
+   
                      
                 </div>
 

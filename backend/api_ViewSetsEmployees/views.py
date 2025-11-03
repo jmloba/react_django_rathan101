@@ -5,12 +5,7 @@ from rest_framework import viewsets
 from app_employees.models import Employee, Department, Gender
 
 from app_employees.serializers import EmployeeSerializers, DepartmentSerializers, GenderSerializers   
-
-
-
 from app_employees.filters import EmployeeFilter, DepartmentFilter, GenderFilter
-
-
 from rest_framework.response import Response
 from rest_framework import status
 

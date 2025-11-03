@@ -6,10 +6,23 @@
   min-height: 100vh;
 
 }
+
+
+.nav-split{
+  display:flex;
+}
+/* .navbar-brand img{
+  width: 25px;
+} */
 .bg-light-dark{
   background-color: var(--var-background);
 
 
+}
+.nav-loggedin{
+  display:flex;
+  justify-content: space-between;
+  
 }
 .navbar{
   
@@ -17,10 +30,17 @@
   max-height :fit-content;
   padding :1px 2rem;
 }
+body{
+  min-width: fit-content;
+}
 
 .container {
   flex: 1;
-  background-color: aqua;
+  background-color: rgb(227, 230, 231);
+  border-radius: 10px;
+
+  
+
 
 }
 .container-1{
@@ -42,6 +62,10 @@ h3.text-light.text-center.form-title {
 color: brown !important;
   
 
+}
+.group-button{
+  background-color: #ee8383;
+  display : flex;
 }
 .main-body{
   background-color: rgb(207, 217, 190);
@@ -78,6 +102,8 @@ color: brown !important;
   text-align : left;
 
 }
+
+
 .menu-option{
   background-color: #ffe4c4;
 
@@ -86,32 +112,31 @@ color: brown !important;
   display : flex;
   flex-wrap: wrap;
   justify-content: center;
-
-  
-
-}
-.datatable-main{
-  background-color: rgb(130, 239, 165);
-  padding : 0.5rem 5em;
-}
-.search-datatable{
-  display : flex;
-  justify-content: right;
-  margin-bottom : 1rem;
+  margin-top:1rem;
+  background-color: rgb(173, 122, 20);
+ 
 
 }
+.data-list2{
+  /* margin:2em ; */
+  padding :1em;
+  background-color: rgb(219, 129, 20);
+  overflow: auto;
+}
+
+
 .Btn{
   padding : 3px 10px;
-  border-color: none;
+
   margin : 0px 2px;
   border-radius: 5px;
   cursor : pointer  ;
-  color: white
+  
 }
 .Btn:hover{
-  opacity : 0.8;
-  background-color: rgb(163, 210, 10);
-  color : rgb(239, 241, 116)
+  /* opacity : 0.8; */
+  background-color: rgb(5, 55, 14);
+  color : rgb(254, 254, 249)
 } 
 .readBtn{
   background-color: rgb(14, 98, 208);
@@ -130,4 +155,56 @@ color: brown !important;
   cursor : pointer  ;
   color: white;
   background-color: rgb(14, 98, 208);
+}
+
+/* responsive table */
+
+
+.search-datatable{
+  display : flex;
+  justify-content: right;
+  margin-bottom : 1rem;
+
+}
+/* modal */
+.modal-dialog{
+  background-color: rgba(243, 238, 235, 0.414);
+  padding : 1em 1em;
+  
+}
+
+/* used in dashboard */
+.dash-area-1{
+margin : 10px 10px;
+background-color: aquamarine;
+padding : 10px 10px;
+}
+
+.dash-area-2{
+margin : 10px 10px
+}
+
+
+
+
+
+
+span{
+  font-size: 14px;
+  color: var(--var-bloodyred);
+  margin-top:0px;
+}
+.cl-action{
+  display:block;
+  width: fit-content;
+}
+
+/* divisions */
+.form-area {
+  background-color: #ee8383;
+
+} 
+.entry-area{
+  background-color: aquamarine;
+
 }

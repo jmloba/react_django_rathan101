@@ -18,7 +18,7 @@ const BooksAdd = () => {
   function handleImage(e){
     setCover(e.target.files[0])
   }
-    const handleSaveBook = async (e)=>{
+  const handleSaveBook = async (e)=>{
     e.preventDefault()
     const formData = new FormData()
 
@@ -54,8 +54,9 @@ const BooksAdd = () => {
   }
   return (
     <>
-    <div className='main-body'>
-
+    <div className='container my-4'>
+      <div className="row">
+         <div className="col-md-8 mx-auto rounded border p-4">
         <h1>Add Books</h1>
         <div className='add-form'>
           
@@ -67,51 +68,52 @@ const BooksAdd = () => {
             </div>
           )}
           <div className="container">
-             <form  method='POST' onSubmit={handleSaveBook}>
-            <div className="form-group">
-                <input type="text" 
-                className="form-control form-control-lg"
-                placeholder="Title"
-                name="title"
-                value={title}
-                onChange={(e)=>setTitle(e.target.value)}/> 
+            <form  method='POST' onSubmit={handleSaveBook}>
+              <div className="form-group">
+                  <input type="text" 
+                  className="form-control form-control-lg"
+                  placeholder="Title"
+                  name="title"
+                  value={title}
+                  onChange={(e)=>setTitle(e.target.value)}/> 
 
-            </div>
-            <div className="form-group">
-              
-              <label>Select Cover(Image)</label>
-              <input type="file" 
-                className="form-control form-control-lg"
+              </div>
+              <div className="form-group">
                 
-                name="cover"
-                onChange={handleImage}
+                <label>Select Cover(Image)</label>
+                <input type="file" 
+                  className="form-control form-control-lg"
+                  
+                  name="cover"
+                  onChange={handleImage}
 
-                // multiple
-                // onChange={(e)=>setImage(e.target.files[0,1])}
-                />
-            </div>
-            
-            
+                  // multiple
+                  // onChange={(e)=>setImage(e.target.files[0,1])}
+                  />
+              </div>
+              {success &&
+              <div className="alert alert-success">"Data saved..."</div>
+                } 
 
-            {success &&
-            <div className="alert alert-success">"Data saved..."</div>
-             
-              } 
+              {loading ? (
+                <button type='submit' className='btn btn-info d-block mx-auto' disabled><FontAwesomeIcon icon={faSpinner} spin/>Please wait</button>
+              ):(
+                <button type='submit' className='btn btn-info d-block mx-auto'>Save</button>
 
-            {loading ? (
-               <button type='submit' className='btn btn-info d-block mx-auto' disabled><FontAwesomeIcon icon={faSpinner} spin/>Please wait</button>
-            ):(
-               <button type='submit' className='btn btn-info d-block mx-auto'>Save</button>
-
-            )
-            
-            }
+              )
+              
+              }
 
           </form>
           </div>
            
         </div>
+         </div>
+
     
+      </div> 
+
+
     </div>
     </>
     

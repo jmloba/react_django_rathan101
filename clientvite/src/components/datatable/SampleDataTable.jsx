@@ -48,7 +48,7 @@ const SampleDataTable = () => {
         fontWeight : 'bold',
         color : 'white',
         backgroundColor : '#0f5744ff',
-        fontWeight : '600',
+
 
       }
     }
@@ -61,7 +61,8 @@ const SampleDataTable = () => {
             <h2>Sample Data Table</h2>
             <div className="datatable-main">
               <div className='search-datatable'>
-                <input type="text" placeholder='Search by title...' className='searchTable'
+                <input type="text" placeholder='Search by title...' 
+                className='searchTable'
                 onChange={handleSearchChange} />
      
 

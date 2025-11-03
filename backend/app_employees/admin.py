@@ -12,7 +12,10 @@ class DepartmentAdmin(admin.ModelAdmin):
   fieldsets=()
 
 class EmployeeAdmin(admin.ModelAdmin):
-  list_display=('emp_id','emp_name','designation','email','gender','department','image')
+  list_display=('id','emp_id','emp_name',
+  'deptname','department',
+  'gender','emp_gendername',
+  'designation','email','image')
   ordering=('emp_id',)
   list_editable =('emp_name','designation',)
   filter_horizontal=()
@@ -23,7 +26,7 @@ admin.site.register(Department,DepartmentAdmin)
 admin.site.register(Employee,EmployeeAdmin)
 
 class GenderAdmin(admin.ModelAdmin):
-  list_display=('gender','created','modified')
+  list_display=('id','gender','created','modified')
   ordering=('gender',)
   list_editable =()
   filter_horizontal=()

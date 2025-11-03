@@ -1,0 +1,10 @@
+po;l 
+
+-csv parser
+npm i papaparse
+
+-to download file as attachment
+npm i file-saver
+npm i react-to-print
+npm i react-data-grid
+npm install xlsx file-saver

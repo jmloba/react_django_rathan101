@@ -32,13 +32,11 @@ router.register('department', Employee_Viewset.DepartmentViewset, basename='depa
 router.register('books', api_ViewSet.BookViewSet, basename='book')
 router.register('condobill', api_ViewSet.CondoBillViewSet, basename='condo')
 
-# router.register('Task', Task_Viewset.Task_ViewSet, basename='task')
-# router.register('Review', Task_Viewset.TaskReview_ViewSet, basename='review')
+router.register('products', api_ViewSet.ProductViewSet , basename='products')
+router.register('productcategory', api_ViewSet.ProductCategoryViewSet , basename='productcategory')
 
-# router.register('projects', Project_Viewset.ProjectViewset, basename='project')
 
-# router.register('projectmanager', Project_Viewset.ProjectManagerViewset, basename='projectmanager')
-
+router.register('tempentries', api_ViewSet.TempEntriesViewSet , basename='tempentries')
 
 app_name='app_api'
 
@@ -53,6 +51,7 @@ urlpatterns=[
 
   path('students/', views.studentsView, name='student-view'),
   path('students/<int:pk>/', views.studentDetailView, name='student-detail-view'),
+  
   path('store/masterfile/', views.StoreMasterFile.as_view(), name='store-master-file'),
 
 ]

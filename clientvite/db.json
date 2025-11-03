@@ -1,0 +1,19 @@
+{
+    "student":[
+        {
+            "student_id": 121,
+            "name":"Mike",
+            "branch":"lancino"
+        },
+        {
+            "student_id": 11,
+            "name":"Klyde",
+            "branch":"lancino"
+        },
+          {
+            "student_id": 1231,
+            "name":"Ana",
+            "branch":"Makati"
+        }
+    ]
+}

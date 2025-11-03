@@ -20,3 +20,6 @@ npm install --save @fortawesome/react-fontawesome
 ===https://docs.fontawesome.com/v5/web/use-with/react
 
 npm install react-data-table-component styled-components
+
+npm install react-hook-form
+npm install -D @hookform/devtools

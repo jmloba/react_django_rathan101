@@ -31,7 +31,7 @@ pymysql.install_as_MySQLdb()
 python manage.py startapp app_accounts
 python manage.py startapp app_products
 python manage.py startapp app_employees
-python manage.py startapp app_todo
+python manage.py startapp app_students
 
 
 pip install django-rest-auth
@@ -41,3 +41,20 @@ pip install django-cors-headers
 pip install djangorestframework
 -django rest framework - simple jwt
 pip install djangorestframework-simplejwt
+
+
+
+from django.db import models
+
+# Create your models here.
+
+
+class Student(models.Model):
+    student_id  = models.CharField(max_length=15, unique=True)
+    name = models.CharField(max_length=50)
+    branch = models.CharField(max_length=20)
+    image = models.ImageField(blank=True, null=True, upload_to='students/')
+  
+
+    def __str__(self):
+        return self.name

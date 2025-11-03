@@ -1,0 +1,16 @@
+.wrapper   {
+    display : grid;
+    place-items: start;
+    background-color: black;
+    height : 200px;
+    width : 200px;
+    padding : 0.5rem;
+}
+.inner{
+    border :.05rem dashed blue;
+    background-color: orange;
+    width : strech;
+    height : strech;
+    margin : 2rem;
+    box-sizing : border-box;
+}

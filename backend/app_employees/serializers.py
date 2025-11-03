@@ -11,10 +11,21 @@ class GenderSerializers(serializers.ModelSerializer):
 
 
 class EmployeeSerializers(serializers.ModelSerializer):
+  
+
   class Meta:
     model = Employee
     # fields = '__all__'
-    fields=['id','emp_name','deptname','email','gender','image']
+    fields=[
+      'id','emp_id', 'emp_name','designation','email',
+      'deptname',
+      'department',
+      'gender',
+      'emp_gendername',
+      'image']
+
+
+
 
 class DepartmentSerializers(serializers.ModelSerializer):
   class Meta:

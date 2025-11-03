@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app_students',
     'app_store',
     'app_condo',
+    'app_product_invoices',
 
 ]
 
