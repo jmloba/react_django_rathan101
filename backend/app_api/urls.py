@@ -6,6 +6,8 @@ from api_ViewSetsEmployees import views as Employee_Viewset
 # from app_task import views as Task_Viewset 
 
 from app_api import views as api_ViewSet
+
+
 from . import views
 
 from app_api.views import studentsView, studentDetailView, StoreMasterFile
@@ -37,6 +39,8 @@ router.register('productcategory', api_ViewSet.ProductCategoryViewSet , basename
 
 
 router.register('tempentries', api_ViewSet.TempEntriesViewSet , basename='tempentries')
+router.register('datacontrol', api_ViewSet.NextDataControlViewset , basename='datacontrol')
+router.register('salesEntries', api_ViewSet.SalesEntriesViewset , basename='salesEntries')
 
 app_name='app_api'
 
@@ -52,6 +56,7 @@ urlpatterns=[
   path('students/', views.studentsView, name='student-view'),
   path('students/<int:pk>/', views.studentDetailView, name='student-detail-view'),
   
+
   path('store/masterfile/', views.StoreMasterFile.as_view(), name='store-master-file'),
 
 ]

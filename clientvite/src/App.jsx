@@ -65,6 +65,7 @@ import ProductInvoiceEntry from './components/products/ProductInvoiceEntry'
 
 
 import YousafFormEntry from './components/tutorials/codeWithYousaf/YousafFormEntry'
+import SalesSummary from './components/products/SalesSummary'
 
 
 function App() {
@@ -94,6 +95,7 @@ function App() {
             <Route path='/addproduct' element={<AddProducts />} />
             <Route path='/editproduct/:id' element={<EditProducts />} />
             <Route path='/products-invoice-entry' element={<ProductInvoiceEntry/>} />
+            <Route path='/sales-summary' element={<SalesSummary/>} />
 
             <Route path='/employees' element={<Employees />} />
             <Route path='/employees-ver2' element={<EmployeesVer2 />} />

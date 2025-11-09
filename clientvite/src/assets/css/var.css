@@ -10,4 +10,12 @@
   --var-bloodyred:rgb(251, 9, 9);
   --var-form-background:rgb(206, 215, 221);
   --var-form-label: rgb(21, 8, 57);
+
+  --flex-color-t: rgb(160, 233, 197) ;
+  --flex-color:green;
+
+  --flex-containter-background : rgb(103, 103, 247);
+
+  --grid-containter-background : rgb(212, 155, 132);
+  
 }

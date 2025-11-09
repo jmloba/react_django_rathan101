@@ -12,14 +12,23 @@ from django.http import HttpResponse
 
 from app_students.models import Student
 from app_students.serializers import StudentSerializer
+
 from app_store.models import MasterFile
 from app_store.serializers import MasterFileSerializer
+
 from app_condo.models import CondoBill
 from app_condo.serializers import CondoBillSerializers
 
-from app_products.models import Products , Product_Category,TempEntries
-from app_products.serializers import ProductSerializers, ProductCategorySerializers ,TempEntriesSerializers
-from app_products.filters import ProductsFilter, TempEntriesFilter
+from app_products.models import Products , Product_Category ,TempEntries, SalesEntries
+from app_products.serializers import ProductSerializers, ProductCategorySerializers  ,TempEntriesSerializers, SalesEntriesSerializer
+from app_products.filters import ProductsFilter  , TempEntriesFilter, SalesEntriesFilter
+
+from app_data.models import NextDataControl
+from app_data.serializers import NextDataControlSerializers  
+from app_data.filters import NextDataControlFilter
+
+
+
 
 
 @api_view(['GET','POST'])
@@ -134,4 +143,26 @@ class ProductViewSet(viewsets.ModelViewSet):
 class TempEntriesViewSet(viewsets.ModelViewSet):
   queryset = TempEntries.objects.all()
   serializer_class = TempEntriesSerializers
-  filterset_class = TempEntriesFilter
+  # filterset_class = TempEntriesFilter
+  filterset_fields =('username','wholesale_price')
+
+class NextDataControlViewset(viewsets.ModelViewSet):
+  queryset = NextDataControl.objects.all()
+  serializer_class = NextDataControlSerializers
+  filterset_class = NextDataControlFilter
+
+  # def post(self, request, *args,  **kwargs):
+  #   dataname = request.data['dataname']
+  #   nextserial= request.data['nextserial']
+  #   description = request.data['description']
+  #   NextDataControl.objects.create(
+  #     dataname=dataname,
+  #     nextserial=nextserial,
+  #     description=description
+  #     ) 
+  #   return HttpResponse({'message':'Next Data record created'}, status = 200)  
+
+class SalesEntriesViewset(viewsets.ModelViewSet):
+  queryset = SalesEntries.objects.all()
+  serializer_class = SalesEntriesSerializer
+  filterset_class = SalesEntriesFilter

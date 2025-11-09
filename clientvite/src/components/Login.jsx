@@ -32,11 +32,13 @@ const Login = () => {
         
         localStorage.setItem('accessToken',response.data.access)
         localStorage.setItem('refreshToken',response.data.refresh)
+        localStorage.setItem('loggedInUser',username)
         setIsLoggedIn(true)
         setLoggedInUser(username)
         console.log (loggedInUser)
         console.log('response is :', response.data)
-        console.log('logged in successfully')
+        console.log('userlogged in :',loggedInUser)
+        console.log('logged in successfully  *****')
         navigate('/')
         // console.log('value of isloggedin:', isLoggedIn)
         

@@ -99,6 +99,9 @@ const navbar001 = () => {
                 <ul className="dropdown-menu">
                   <li><Link className="dropdown-item" to="/products">Products</Link></li>
                   <li><Link className="dropdown-item" to="/products-invoice-entry">Product InvoiceEntry</Link></li>
+                  <li><hr className="dropdown-divider"/></li>
+                  <li><Link className="dropdown-item" to="/sales-summary">Sales Summary</Link></li>
+                  
                 </ul>
               </li>
 

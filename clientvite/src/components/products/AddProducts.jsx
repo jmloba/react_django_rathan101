@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { useEffect, useState , useRef} from 'react'
+import { useEffect, useState, useRef } from 'react'
 import axiosInstance from '../../AxiosInstance'
 
 
@@ -9,8 +9,8 @@ const AddProducts = () => {
   const navigate = useNavigate()
 
   const [formErrors, setFormErrors] = useState({})  // empty object
-   const fileInputRef = useRef(null);
-   
+  const fileInputRef = useRef(null);
+
   const [isSubmit, setIsSubmit] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null);
   const [productCategoryList, setProductCategoryList] = useState([])
@@ -23,8 +23,8 @@ const AddProducts = () => {
     wholesale_price: "",
     retail_price: "",
     stock: "",
-    image:''
-   
+    image: ''
+
   }
   const [formValues, setFormValues] = useState(initialValues)
 
@@ -36,16 +36,16 @@ const AddProducts = () => {
     console.log('handleChange-form values are : ', formValues)
   };
 
- const handleFileChange = (e) => {
+  const handleFileChange = (e) => {
     // Access the selected files via event.target.files
     setUploadedFiles(e.target.files[0])
     const { name, value } = e.target;
     const files = e.target.files[0];
-    console.log ('files selected are ', files)
-    
+    console.log('files selected are ', files)
+
     setFormValues({ ...formValues, [name]: value })
 
-    
+
   };
 
   const handleSelectProductCategory = (e) => {
@@ -68,7 +68,7 @@ const AddProducts = () => {
     } else if (values.product_name.length < 3) {
       errors.product_name = 'Name length  should be >3'
 
-    } else if (values.product_name.length >100) {
+    } else if (values.product_name.length > 100) {
       errors.product_name = 'Name length  should be <=100'
 
     }
@@ -94,8 +94,8 @@ const AddProducts = () => {
       errors.stock = 'stock Price  should be <= 100000'
     }
 
-    if(!values.image){
-      errors.image='No uploaded files'
+    if (!values.image) {
+      errors.image = 'No uploaded files'
     }
 
 
@@ -117,7 +117,7 @@ const AddProducts = () => {
     formData.append('wholesale_price', formValues.wholesale_price)
     formData.append('retail_price', formValues.retail_price)
     formData.append('stock', formValues.stock)
-    formData.append('image',uploadedFiles)
+    formData.append('image', uploadedFiles)
     try {
       const response = await axiosInstance.post('/products/', formData,
         {
@@ -278,8 +278,8 @@ const AddProducts = () => {
               {/* ------ Photo--------- */}
               <div className="field">
                 <label htmlFor="">Stock</label>
-                <input type="file" 
-                  
+                <input type="file"
+
                   className='form-control'
                   name="image"
                   placeholder="image"

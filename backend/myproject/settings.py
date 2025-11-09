@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'app_store',
     'app_condo',
     'app_product_invoices',
+    'app_data',
 
 ]
 

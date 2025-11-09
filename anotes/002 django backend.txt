@@ -32,6 +32,7 @@ python manage.py startapp app_accounts
 python manage.py startapp app_products
 python manage.py startapp app_employees
 python manage.py startapp app_students
+python manage.py startapp app_data
 
 
 pip install django-rest-auth

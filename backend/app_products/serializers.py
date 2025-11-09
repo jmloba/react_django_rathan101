@@ -1,6 +1,7 @@
-from app_products.models import Products, Product_Category, TempEntries
+from app_products.models import Products, Product_Category , TempEntries, SalesEntries
 
 from rest_framework import serializers
+
 
 class ProductCategorySerializers(serializers.ModelSerializer):
   class Meta:
@@ -42,10 +43,26 @@ class TempEntriesSerializers(serializers.ModelSerializer) :
     model = TempEntries
     # fields = '__all__'
     fields=[
-      'id','username', 'itemnumber',
+      'id','username',
+      'product_linkid', 
+      'itemnumber',
       'product_name', 
       'wholesale_price', 
       'retail_price',
-      'quantity', 'created','modified'
+      'quantity', 
+      # 'created','modified'
       
       ]    
+    
+class SalesEntriesSerializer(serializers.ModelSerializer)    :
+   
+  class Meta:
+    model = SalesEntries
+    # fields = '__all__'
+    fields=['username',
+            'invoice_ref',
+            'product_linkid',
+            'quantity',
+
+            ]
+    

@@ -8,19 +8,20 @@ import DataTable from 'react-data-table-component'
 import { DataGrid } from 'react-data-grid';
 import Papa from 'papaparse';
 
-import {saveAs} from 'file-saver';
+import { saveAs } from 'file-saver';
 
 
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
 
 import 'react-data-grid/lib/styles.css';
+import '../../assets/css/flexcontainer.css'
 
 import { ExportToExcel } from '../exportfile/ExportToExcel';
-    
+
 import { useNavigate } from 'react-router-dom';
 import { ExportToCsv } from '../exportfile/ExportToCsv';
-import  {ExportToPdfEmployeeList }  from '../exportfile/ExportToPdfEmployeeList';
+import { ExportToPdfEmployeeList } from '../exportfile/ExportToPdfEmployeeList';
 const columns = [
   {
     name: "Image",
@@ -100,14 +101,14 @@ const columns = [
     )
   }
 ]
-  //  export const exportToExcel = (data, fileName = 'exported_data') => {
-  //     const worksheet = XLSX.utils.json_to_sheet(data);
-  //     const workbook = XLSX.utils.book_new();
-  //     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-  //     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  //     const dataBlob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-  //     saveAs(dataBlob, `${fileName}.xlsx`);
-  //   };
+//  export const exportToExcel = (data, fileName = 'exported_data') => {
+//     const worksheet = XLSX.utils.json_to_sheet(data);
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+//     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+//     const dataBlob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+//     saveAs(dataBlob, `${fileName}.xlsx`);
+//   };
 
 const Employees = () => {
   const [list, setList] = useState([])
@@ -117,41 +118,42 @@ const Employees = () => {
   const [records, setRecords] = useState(employees)
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
-  
-  
+
+
   const prntColumns = [
-  {key:'id', name:'ID'},
-  {
-    key:'image', name:'IMAGE',
-    renderCell : ({ row }) => (
-      <img height={25} width={25} 
-        src={row.image}
-        style={ {width: 30,
-          height: 30,
-          borderRadius: '50%' , // Apply the border-radius
-          border: '1px solid #094826ff',
-          justifyContent:'center',
-          alignItems:'center',
-        
-        }}
+    { key: 'id', name: 'ID' },
+    {
+      key: 'image', name: 'IMAGE',
+      renderCell: ({ row }) => (
+        <img height={25} width={25}
+          src={row.image}
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: '50%', // Apply the border-radius
+            border: '1px solid #094826ff',
+            justifyContent: 'center',
+            alignItems: 'center',
 
-      
-      />
-    )
-   },
-  {key:'emp_id', name:'EMPID'},
-  {key:'emp_name', name:'NAME'},
-  {key:'deptname', name:'DEPTCODE'},
-  {key:'department', name:'DEPARTMENT'}  ,
-  {key:'designation', name:'DESIGNATION'}  ,
-  {key:'email', name:'EMAIL'}  ,
-  {key:'gender', name:'GenderCode'}  ,
-  {key:'emp_gendername', name:'GENDER'},
-  
-]
+          }}
 
-  const EditDetails = (e,id) => {
-    console.log('Record to edit :',id)
+
+        />
+      )
+    },
+    { key: 'emp_id', name: 'EMPID' },
+    { key: 'emp_name', name: 'NAME' },
+    { key: 'deptname', name: 'DEPTCODE' },
+    { key: 'department', name: 'DEPARTMENT' },
+    { key: 'designation', name: 'DESIGNATION' },
+    { key: 'email', name: 'EMAIL' },
+    { key: 'gender', name: 'GenderCode' },
+    { key: 'emp_gendername', name: 'GENDER' },
+
+  ]
+
+  const EditDetails = (e, id) => {
+    console.log('Record to edit :', id)
     // navigate(`/dipeshmalvia-editemployee/${id}`)  
   }
 
@@ -162,20 +164,20 @@ const Employees = () => {
   }
 
   const handleExportToPdf = (e) => {
-  e.preventDefault()
-  ExportToPdfEmployeeList(records,columns, 'List of Employees');
-  
+    e.preventDefault()
+    ExportToPdfEmployeeList(records, columns, 'List of Employees');
+
   }
-  
+
 
 
   const handleExportToExcel = (e) => {
     e.preventDefault()
-  
+
     ExportToExcel(records, 'List of Employees');
     alert('export to Excel')
   }
- 
+
   const tableHeaderStyle = {
     headCells: {
       style: {
@@ -203,17 +205,17 @@ const Employees = () => {
         borderStyle: 'solid',
         borderColor: '#c3c0c0ff',
         fontSize: '14px',
-        
+
       },
 
     }
-
-
-
-
+  }
+  const handleAddRecord = (e) => {
+    e.preventDefault()
+    navigate('/boostmytool-addemployee')
 
   }
- 
+
 
   useEffect(
     () => {
@@ -247,22 +249,9 @@ const Employees = () => {
     <>
       <div className="container">
         <div className="main-body">
-          <h1>Employees using datatable</h1>
-          
-          {/* <div className="data-list d-block my-5">
-            <div>
-              <h3>Employees DataGrid</h3>
+          <h1>Employees using datatable ***</h1>
 
-            </div>
-            <div className="btn-group">
-              <button className='btn btn-success' onClick={handleExportToPdf}>Export to Pdf</button>
-              <button className='btn btn-success' onClick={handleExportToCsvGrid}> Export to Csv</button>
-            </div>
-            <DataGrid
-              columns={prntColumns}
-              rows={records}
-            />
-          </div> */}
+
           <div className="data-list">
             <DataTable id='table-DataTable'
               columns={columns}
@@ -271,16 +260,17 @@ const Employees = () => {
               // conditionalRowStyles={conditionalRowStyles}
               pagination
               selectableRows
-              
+
               fixedHeader
               selectableRowsHighlight
               highlightOnHover
               actions={
                 <>
-                  
+
                   <button className='btn btn-success' onClick={handleExportToCsvGrid}> Export to Csv</button>
                   <button className='btn btn-success' onClick={handleExportToExcel}> Export to Excel</button>
                   <button className='btn btn-success' onClick={handleExportToPdf}> Pdf</button>
+                  <button className='btn btn-success' onClick={handleAddRecord}> AddRecord</button>
 
                 </>
               }
@@ -362,6 +352,69 @@ const Employees = () => {
 
 
         </div>
+      </div>
+      {/*---------------- using flexbox ---------------- */}
+      <div className="main-body">
+        <h2>using flexbox</h2>
+        <div className="flex-container">
+          {records.map((record, index) => {
+            return (
+
+              <div className="card"           >
+                <img src={record.image} alt="image" />
+                <div className="card-body">
+                  <p>Id : <span>{record.id}</span></p>
+                  <p>Name : <span>{record.emp_name}</span></p>
+
+
+
+
+
+                </div>
+              </div>
+            )
+          }
+          )}
+
+        </div>
+
+      </div>
+      {/* ----------------   using grid  ----------------*/}
+      <div className="main-body">
+        <h2>using grid</h2>
+        <div className="grid-container">
+          {records.map((record, index) => {
+            return (
+              <div className="card">
+                <div className="card-img">
+                    <img   src={record.image} alt="image" />                
+                </div>
+                
+                
+
+                <div className="card-body">
+                  <div className="card-record">
+                    <div className="card-record-label">Employee id</div>
+                    <div className="card-record-data">{record.id}</div>
+
+                  </div>
+                  <div className="card-record">
+                    <div className="card-record-label">Name</div>
+                    <div className="card-record-data">{record.emp_name}</div>
+
+                  </div>
+
+
+                </div>
+              </div>
+            )
+          }
+          )}
+        </div>
+
+
+
+
       </div>
     </>
 

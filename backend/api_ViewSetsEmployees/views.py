@@ -3,9 +3,14 @@ from django.shortcuts import render,get_object_or_404
 
 from rest_framework import viewsets
 from app_employees.models import Employee, Department, Gender
+from app_data.models import NextDataControl
 
 from app_employees.serializers import EmployeeSerializers, DepartmentSerializers, GenderSerializers   
+from app_data.serializers import NextDataControlSerializers
+
 from app_employees.filters import EmployeeFilter, DepartmentFilter, GenderFilter
+from app_data.filters  import NextDataControlFilter
+
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -28,4 +33,3 @@ class EmployeeViewset(viewsets.ModelViewSet):
   # filterset_fields = ['designation']
   filterset_class = EmployeeFilter
 
-  
