@@ -2,17 +2,22 @@ import React from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../../AuthProvider';
 import { useEffect, useState, useRef, useContext } from 'react'
-import axiosInstance from '../../AxiosInstance'
+
 
 import Button from '../Button'
 import DataTable from 'react-data-table-component'
+import { dataTableStyle } from '../functions/DataTableStyle';
 import { ExportToExcel } from '../exportfile/ExportToExcel'
+import temp_columns from './TempfileColumns';
+import ProductColumns from './ProductColumns';
 
 
+import axiosInstance from '../../AxiosInstance';
 
 const ProductInvoiceEntry = () => {
   const { isLoggedIn, setIsLoggedIn, theme, setTheme, loggedInUser, setLoggedInUser } = useContext(AuthContext)
   const navigate = useNavigate()
+  const todaydate = new Date()
   const [isSubmit, setIsSubmit] = useState(false)
   const [formErrors, setFormErrors] = useState({})  // empty object
 
@@ -22,124 +27,13 @@ const ProductInvoiceEntry = () => {
   const [myEntries, setMyEntries] = useState([])
   const [tempRecords, setTempRecords] = useState(myEntries)
   const [dataSaved, setDataSaved] = useState(false)
+  const [todayDate, setTodayDate] = useState('');
 
   const [search, setSearch] = useState('')
 
-    // data control
+  // data control
   const [nextSerialSales, setNextSerialSales] = useState('')
   const [controlId,setControlId] = useState('')
-
-
-
-  // columns for tempfiles
-  const temp_columns = [
-
-    {
-      name: "username",
-      selector: row => row.username,
-      sortable: true,
-    },
-    {
-      name: "id",
-      selector: row => row.id,
-      sortable: true
-    },
-    {
-      name: "quantity",
-      selector: row => row.quantity,
-      sortable: true,
-    },
-    {
-      name: "linkedid",
-      selector: row => row.product_linkid,
-      sortable: true,
-    },
-    {
-      name: "productname",
-      selector: row => row.product_name,
-      sortable: true,
-    },
-    {
-      name: "quantity",
-      selector: row => row.quantity,
-      sortable: true,
-    },
-
-
-  ]
-  // columns for product - master file
-  const columns = [
-    {
-      name: "id",
-      selector: row => row.id,
-      sortable: true
-
-    },
-
-    {
-      name: "itemnumber",
-      selector: row => row.product_itemno,
-      sortable: true,
-      maxwidth: '800px',
-    },
-    {
-      name: "product_name",
-      selector: row => row.product_name,
-      sortable: true,
-
-    },
-    {
-      name: "wholesale",
-      selector: row => row.wholesale_price,
-      sortable: true,
-
-    },
-    {
-      name: "retail",
-      selector: row => row.retail_price,
-      sortable: true,
-
-    },
-    {
-      name: "quantity",
-      selector: row => row.quantity,
-      sortable: true,
-
-    },
-  ]
-  const tableHeaderStyle = {
-    headCells: {
-      style: {
-        fontWeight: "600",
-        fontSize: "20px",
-        backgroundColor: '#2e2c03ff',
-        color: "white",
-        padding: "5px 0px",
-
-      }
-    },
-    rows: {
-      style: {
-        backgroundColor: '#e7e6d9f9',
-        // borderStyle: 'solid',
-        //  borderWidth: ".5px",
-
-      },
-
-    },
-
-    cells: {
-      style: {
-        backgroundColor: '#ede9e24f',
-        borderStyle: 'solid',
-        borderColor: '#c3c0c0ff',
-        fontSize: '14px',
-
-      },
-
-    }
-  }
-
   const initialValues = {
     username: loggedInUser,
     ref_id: "",
@@ -179,7 +73,6 @@ const ProductInvoiceEntry = () => {
 
   }
   const handleDeleteRecord = async (id)=>{
-   
       try{
         const response = await axiosInstance.delete(`/tempentries/${id}/`)
         console.log('Deleted record no :',id)
@@ -190,91 +83,133 @@ const ProductInvoiceEntry = () => {
     }
 
   }
+// --------- save data  to temp entries --------
+  const saveData = async () => {
+    console.log('form errors length is zero : -> save procedure', Object.keys(formErrors).length === 0)
+    console.log('logged in user ', loggedInUser)
+    const formData = new FormData()
+    formData.append('itemnumber', formValues.itemnumber)
+    formData.append('product_name', formValues.product_name)
+    formData.append('wholesale_price', formValues.wholesale_price)
+    formData.append('retail_price', formValues.retail_price)
+    formData.append('quantity', formValues.quantity)
+    formData.append('product_linkid', formValues.ref_id)
+    formData.append('username', loggedInUser)
+    try {
+      const response = await axiosInstance.post('/tempentries/', formData,
+        {
+          
+          headers: {
+            // 'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
+            // 'Authorization': 'Bearer your_token' // Example header
+          }
+        }
+      )
+      setDataSaved(true)
+      console.log('response ->>', response.data)
+      navigate('/products-invoice-entry')
+
+      // window.location.reload()
+
+
+    } catch (error) {
+      // setFormErrors({ 'product_itemno': error.response.data.product_itemno });
+      console.log('There was an error!', error.response);
+    }
+  }
+// --------- end save data  to temp entries --------
+  
+/* ----------   final save data to salesentries ----------    */
+
+  
   const handleSaveData= async (e)=>{
     e.preventDefault()
     console.log ('handle save data click!!!!!')
     
     // read data control
     try{
-      const response = await axiosInstance.get('/datacontrol/?dataname=sales')
+      const response = await axiosInstance.get('/datacontrol/?dataname__iexact=sales')
       console.log('response from datacontrol -> ', response.data)
       const mydatacontrol = response.data
       setControlId(mydatacontrol[0].id)
       setNextSerialSales(mydatacontrol[0].nextserial)
-      console.log ('after setting')
+      
       
     }catch(error)  {
-     // Handle any errors that occurred during the fetch operation
      console.error('Error fetching sales data:', error.message);
-     // You might want to display an error message to the user
     }
+  
+    console.log('controlid : ', controlId, )
+    console.log('nextSerialSales :', nextSerialSales)
+    console.log('nextSerialSales  type :', typeof(nextSerialSales))
 
-    console.log('controlid ', controlId, '--> next invoice :',nextSerialSales )
-    const typeserial = typeof(nextSerialSales)
-    console.log('next serial type :', typeserial)
-    //  data control increment  ->nextserial
+    // //  data control increment  ->nextserial
     const x_next = nextSerialSales+1
-    console.log('2. type of  for next serial ',typeof(x_next))
-    console.log('2. control id :',controlId,  'typeof :', typeof(controlId))
+
+    console.log ('Next serial number is   *** :',x_next)
 
     const formData = new FormData()
     formData.append('dataname','sales')
     formData.append ('nextserial',x_next)
 
     try{
-      const datacontrol_resp = await axiosInstance.put(`/datacontrol/${controlId}/`,formData
-        //   {
-        //   headers: {
-        //     // 'Content-Type': 'application/json',
-        //     'Content-Type': 'multipart/form-data',
-        //     // 'Authorization': 'Bearer your_token' // Example header
-        //   }
-        // }
-      )
-      console.log('response updating data control',
-        datacontrol_resp.data
-      )
-
-    }catch(error){
-      console.log ('data control error 2:',error.datacontrol_resp.data)
-    }
-
-    // 3. update     sales Entries
-    tempRecords.map(async(record, index)=>{
-      
-      console.log( record.id)
-      const formData  = new FormData()
-      formData.append('invoice_ref',nextSerialSales)
-      formData.append('username', localStorage.getItem('loggedInUser'))
-      formData.append('product_linkid',record.product_linkid)
-      formData.append('quantity',record.quantity)
-      try{
-        const response_salesentries = await axiosInstance.post('/salesEntries/', formData,
-               {
+      const datacontrol_resp = await axiosInstance.put(`/datacontrol/${controlId}/`,
+        formData,
+          {
           headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'multipart/form-data',
             // 'Authorization': 'Bearer your_token' // Example header
           }
         }
+      )
+      console.log('response after updating updating data control', datacontrol_resp.data)
+      console.log('data control has been edited ***')   
+      
+
+    }catch(error){
+      console.log ('data control  error 2 -> error in updating  ****:',error.datacontrol_resp.data)
+    }
+    
+
+    // 3. update     sales Entries
+    tempRecords.map(async(record, index)=>{
+      
+      
+      console.log( record.id)
+      console.log('record to transfer ***: ', record)
+
+
+      const formData2  = new FormData()
+      formData2.append('invoice_ref',nextSerialSales)
+      formData2.append('username', localStorage.getItem('loggedInUser'))
+      formData2.append('product_linkid',record.product_linkid)
+      formData2.append('quantity',record.quantity)
+      // formData.append('date',todayDate)
+      console.log ('todays date -->:', todayDate)
+      console.log('formdata2 -> data to save:', formData2)
+
+      try{
+        const resSaveEntries = await axiosInstance.post('/salesentries/', formData2,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }
+
+
+        
         )
-        const myresult= response_salesentries.data
-        console.log('saving in salesentries',myresult)
+        
+        console.log('response saving  in salesentries',resSaveEntries.data)
         handleDeleteRecord(record.id)
 
       }catch(error){
-        console.log(error.myresult)
+        console.log('Error updating salesentries -->> ',error)
       }
-    
-
-
-
       })
       navigate('/products')
-
-
- 
   }
+/* ----------   end saving data to salesentries   ---------- */
 
 
   const handleRowClick = row => {
@@ -284,14 +219,10 @@ const ProductInvoiceEntry = () => {
       ref_id: row.id,
       itemnumber: row.product_itemno,
       product_name: row.product_name,
-
       wholesale_price: row.wholesale_price,
       retail_price: row.retail_price,
       quantity: 0
     })
-
-
-
   }
 
   const handleExportToExcel = (e) => {
@@ -341,42 +272,8 @@ const ProductInvoiceEntry = () => {
     setIsSubmit(true)
   }
 
-  const saveData = async () => {
-    console.log('form errors length is zero : -> save procedure', Object.keys(formErrors).length === 0)
-    console.log('logged in user ', loggedInUser)
-    const formData = new FormData()
-    formData.append('itemnumber', formValues.itemnumber)
-    formData.append('product_name', formValues.product_name)
-    formData.append('wholesale_price', formValues.wholesale_price)
-    formData.append('retail_price', formValues.retail_price)
-    formData.append('quantity', formValues.quantity)
-    formData.append('product_linkid', formValues.ref_id)
-    formData.append('username', loggedInUser)
-    try {
-      const response = await axiosInstance.post('/tempentries/', formData,
-        {
-          headers: {
-            // 'Content-Type': 'application/json',
-            'Content-Type': 'multipart/form-data',
-            // 'Authorization': 'Bearer your_token' // Example header
-          }
-        }
-      )
-      setDataSaved(true)
-      console.log('response ->>', response.data)
-      navigate('/products-invoice-entry')
-
-      // window.location.reload()
 
 
-    } catch (error) {
-      // setFormErrors({ 'product_itemno': error.response.data.product_itemno });
-      console.log('There was an error!', error.response);
-    }
-
-
-
-  }
   // when form errors change
   useEffect(
     () => {
@@ -424,6 +321,7 @@ const ProductInvoiceEntry = () => {
   useEffect(
     () => {
       const fetchProtectedData = async () => {
+        console.log('reading tempfile***')
 
         try {
           const currentUser = localStorage.getItem('loggedInUser')
@@ -431,7 +329,7 @@ const ProductInvoiceEntry = () => {
 
           setLoggedInUser(currentUser)
           console.log('reading logged in user--->>>', loggedInUser)
-          const response = await axiosInstance.get(`/tempentries/?username=${currentUser}`)
+          const response = await axiosInstance.get(`/tempentries/?username__iexact=${currentUser}`)
           setMyEntries(response.data)
           setTempRecords(response.data)
           console.log('tempentries :', response.data)
@@ -445,12 +343,22 @@ const ProductInvoiceEntry = () => {
   )
 
 
+  useEffect(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    setTodayDate(formattedDate);
+  }, []);
 
 
   return (
     <>
       <div className="container">
-        <div>ProductInvoiceEntry</div>
+        <div>
+          <h2>Product Invoice Entry</h2>
+        </div>
         <div className="row px-2 py-3">
           <div className="form-area col-md-4 me-auto">
             <p>form area</p>
@@ -573,7 +481,7 @@ const ProductInvoiceEntry = () => {
               <DataTable id='table-DataTable'
                 columns={temp_columns}
                 data={tempRecords}
-                customStyles={tableHeaderStyle}
+                customStyles={dataTableStyle}
                 // conditionalRowStyles={conditionalRowStyles}
                 pagination
                 selectableRows
@@ -583,13 +491,11 @@ const ProductInvoiceEntry = () => {
                 highlightOnHover
                 actions={
                   <>
-
-
                     <button className='btn btn-success' onClick={handleExportToExcel}> Export to Excel</button>
                     {/*                   
                   <button className='btn btn-success' onClick={handleExportToCsvGrid}> Export to Csv</button>
                   <button className='btn btn-success' onClick={handleExportToPdf}> Pdf</button> 
-                  
+                
  */}
 
                   </>
@@ -623,8 +529,6 @@ const ProductInvoiceEntry = () => {
         </div>
       </div>
       {/* ------- modal area       */}
-
-
       <div className="modal fade"
         id='searchModalForm'
         tabIndex='-1'
@@ -636,9 +540,9 @@ const ProductInvoiceEntry = () => {
             <h2>Search modal</h2>
             <div className="data-list">
               <DataTable id='table-DataTable'
-                columns={columns}
+                columns={ProductColumns}
                 data={records}
-                customStyles={tableHeaderStyle}
+                customStyles={dataTableStyle}
                 // conditionalRowStyles={conditionalRowStyles}
                 pagination
                 selectableRows

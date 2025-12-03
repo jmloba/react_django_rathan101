@@ -86,7 +86,7 @@ const BoostMyTool_AddEmployee = () => {
   }
 
   
-  async function handleAddData(event){
+  async function handleSubmitAddData(event){
     event.preventDefault()
       
     const formData = new FormData(event.target)
@@ -169,7 +169,7 @@ const BoostMyTool_AddEmployee = () => {
        <h3>Add Employee - container by boostmytool</h3>
       <div  className='form-main '>
        
-        <form action="" onSubmit={handleAddData}>
+        <form action="" onSubmit={handleSubmitAddData}>
 
           {/* ------ id--------- */}
           <div className="row mb-3 ">

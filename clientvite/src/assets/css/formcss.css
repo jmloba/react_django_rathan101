@@ -1,11 +1,14 @@
 
 .form-main{
   background-color: bisque;
+  padding : 2em 2em;
+  border-radius: 1em;
 }
 form{
-  background-color: rgb(228, 212, 176);
-  padding: 1em;
+  background-color: rgb(221, 217, 208);
+  padding: 2em;
   min-width: fit-content;
+  border-radius: 10px;
 
 
  
@@ -14,6 +17,7 @@ form{
 input[type="data"],
 input[type="number"],
 input[type="email"],
+input[type="password"],
 input[type="file"],
 input[type="text"]{
   display : block;
@@ -22,7 +26,7 @@ input[type="text"]{
   
   padding: 8px ;
   box-sizing: border-box;
-  border:1px solid #a00c0c;
+  border:1px solid #191263;
   border-radius: 12px;
   font-size:14px;
   font-weight: 700;
@@ -57,8 +61,6 @@ label{
 .form-errors{
   color :var(--var-bloodyred)
 }
-.form-group{
-  
-  
-  
+.form-title {
+  color : rgb(43, 43, 217);
 }

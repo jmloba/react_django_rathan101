@@ -1,30 +1,33 @@
-import { useState } from 'react'
+
+
+
+
 
 import "../src/assets/css/var.css"
-
 import "../src/assets/css/generalcss.css"
 
+import { BrowserRouter  ,Navigate , Route, Routes  } from 'react-router-dom'
 
 
-import Hello from './components/testfolder/Hello'
-import TheBasics from './components/thebasics/TheBasics'
 import Header from './components/maincomponents/Header'
 import MainBody from './components/maincomponents/Mainbody'
 import Footer from './components/maincomponents/footer'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+import Hello from './components/testfolder/Hello'
+import TheBasics from './components/thebasics/TheBasics'
+
+
+
 import Main from './components/Main'
 
 import Register from './components/Register'
 import Login from './components/Login'
 import AuthProvider from './AuthProvider'
 
-import Dashboard from './components/dashboard/Dashboard'
-import PrivateRoute from './PrivateRoute'
-import Books from './components/books/Books'
-import BooksAdd from './components/books/BooksAdd'
-
-
-
+import Dashboard        from './components/dashboard/Dashboard'
+import PrivateRoute     from './PrivateRoute'
+import Books            from './components/books/Books'
+import BooksAdd         from './components/books/BooksAdd'
 
 import StoreMaster from './components/storemaster/storemaster'
 import SampleDataTable from './components/datatable/SampleDataTable'
@@ -39,52 +42,111 @@ import AddStudent   from './components/students/AddStudent'
 import ViewStudent  from './components/students/ViewStudent'
 import EditStudent  from './components/students/EditStudent'
 import Students     from './components/students/Students'
-import Employees      from './components/employees/Employees'
 
+import Employees      from './components/employees/Employees'
 import ArinEmployees  from './components/employees_byArin/ArinEmployees'
 
-import TutorDashboard from './components/dashboard/tutorDashboard'
-import TutorForm001 from './components/tutorials/TutorForm001'
-import TutorFormDropdown from './components/tutorials/TutorFormDropdown'
-import EmployeesVer2 from './components/employees_ver2/EmployeesVer2'
-import TutorUseEffect from './components/tutorials/TutorUseEffect'
+import TutorDashboard     from './components/dashboard/tutorDashboard'
+import TutorForm001       from './components/tutorials/TutorForm001'
+import TutorFormDropdown  from './components/tutorials/TutorFormDropdown'
+import EmployeesVer2      from './components/employees_ver2/EmployeesVer2'
+import TutorUseEffect     from './components/tutorials/TutorUseEffect'
 
-import Contacts from './components/otherpages/Contacts'
+import Contacts           from './components/otherpages/Contacts'
 
 import BosstMyTool_Employee       from './components/byboostmytool/BosstMyTool_Employee'
 import BoostMyTool_AddEmployee    from './components/byboostmytool/BoostMyTool_AddEmployee'
 import DipeshMalvia_AddEmployee   from './components/byboostmytool/DipeshMalvia_AddEmployee'
 import DipeshMalvia_EditEmployee  from './components/byboostmytool/DipeshMalvia_EditEmployee'
+import EmployeeAdd from "./components/employees/EmployeeAdd"
 
 import SpreadOperator01 from './components/spreadoperator/SpreadOperator01'
 
-import Products     from './components/products/products'
-import AddProducts  from './components/products/AddProducts'
-import EditProducts from './components/products/EditProducts'
-import ProductInvoiceEntry from './components/products/ProductInvoiceEntry'
-
+import Products             from './components/products/products'
+import AddProducts          from './components/products/AddProducts'
+import EditProducts         from './components/products/EditProducts'
+import ProductInvoiceEntry  from './components/products/ProductInvoiceEntry'
+import SalesSummary         from './components/products/SalesSummary'
 
 import YousafFormEntry from './components/tutorials/codeWithYousaf/YousafFormEntry'
-import SalesSummary from './components/products/SalesSummary'
+
+
+import UnauthorizedPage   from './components/pages/UnauthorizedPage'
+import AdminPage          from './components/pages/AdminPage'
+
+import CallAFunction      from './components/functions/CallAFunction'
+
+import UserProfile from './components/user/UserProfile'
+import Profile from './components/pages/Profile'
+import { hasPermission } from './components/functions/Permission'
+import { useState,useContext } from 'react'
+import { AuthContext } from './AuthProvider'
+import ProtectedRoute     from './components/pages/ProtectedRoute'
+import InvoiceEntry001 from "./components/products/InvoiceEntry001"
+import InvoiceSummary from "./components/products/InvoiceSummary"
+import EmployeeAddWithImage from "./components/employees/EmployeeAddWithImage"
 
 
 function App() {
+ const {
+     isLoggedIn, setIsLoggedIn,
+     email ,setEmail,
+     theme, setTheme,
+     loggedInUser, setLoggedInUser,
+     permissions,setPermissions 
+      
+ 
+   } = useContext(AuthContext)
+
+   const updateStatus=()=>{
+    setIsLoggedIn((prev)=>!prev)
+
+   }
 
   return (
     <>
-      <AuthProvider>
+      
         <BrowserRouter>
           <Header />
+
           <Routes>
-            <Route path='/' element={<Main />} />
+            
+            
+            <Route path='/' exact element={<Main/>} />
+            <Route path='/unauthorized' element={<UnauthorizedPage />} />
+
+            <Route path='/login' element={<Login updateStatus={updateStatus} />} />
+
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
 
-            <Route path='/books' element={<Books />} />
-            <Route path='/books-add' element={<BooksAdd />} />
 
-            <Route path='/condobill' element={<Condo />} />
+            {/* <Route path='/books' 
+              element={
+                <PrivateRoute isLoggedIn={isLoggedIn}>
+                  <Books/>
+                </PrivateRoute>
+              } /> */}
+
+            <Route element={<ProtectedRoute isLoggedIn={isLoggedIn}/>} >
+              <Route path='/books' exact element={<Books />} />
+              <Route path='/books-add' exact element={<BooksAdd />} />
+
+            </Route>  
+
+            
+
+            <Route element={<ProtectedRoute isLoggedIn={isLoggedIn}/>} >
+            
+              <Route path='/condobill' element={<Condo />} />
+              
+            </Route>            
+
+
+
+            
+
+            <Route path='/callafunction' element={<CallAFunction />} />
 
             <Route path='/condobill1' element={<Condo1 />} />
             <Route path='/condobill2' element={<Condo2 />} />
@@ -94,20 +156,27 @@ function App() {
             <Route path='/products' element={<Products />} />
             <Route path='/addproduct' element={<AddProducts />} />
             <Route path='/editproduct/:id' element={<EditProducts />} />
-            <Route path='/products-invoice-entry' element={<ProductInvoiceEntry/>} />
-            <Route path='/sales-summary' element={<SalesSummary/>} />
+            <Route path='/products-invoice-entry' element={<ProductInvoiceEntry />} />
+            <Route path='/invoiceentry-001' element={<InvoiceEntry001 />} />
+            <Route path='/invoice-summary' element={<InvoiceSummary />} />
+
+            <Route path='/sales-summary' element={<SalesSummary />} />
 
             <Route path='/employees' element={<Employees />} />
             <Route path='/employees-ver2' element={<EmployeesVer2 />} />
 
             <Route path='/boostmytool-employee' element={<BosstMyTool_Employee />} />
             <Route path='/boostmytool-addemployee' element={<BoostMyTool_AddEmployee />} />
+            <Route path='/employee-add' element={<EmployeeAdd />} />
+            <Route path='/employee-add-with-image' element={<EmployeeAddWithImage />} />
 
             <Route path='/dipeshmalvia-addemployee' element={<DipeshMalvia_AddEmployee />} />
             <Route path='/dipeshmalvia-editemployee/:id' element={<DipeshMalvia_EditEmployee />} />
 
             <Route path='/employees' element={<Employees />} />
             <Route path='/arin-employees' element={<ArinEmployees />} />
+
+            
 
             <Route path='/student' element={<Students />} />
             <Route path='/student-add' element={<AddStudent />} />
@@ -123,18 +192,16 @@ function App() {
             <Route path='/tutorDashboard/spread_operator' element={<SpreadOperator01 />} />
 
             <Route path='/tutorDashboard/useEffect' element={<TutorUseEffect />} />
-            
+
             <Route path='/tutor/yousaf/ex-formentry' element={<YousafFormEntry />} />
 
+            <Route path='/user-profile' element={<UserProfile />} />
+            <Route path='/profile' element={<Profile />} />
 
           </Routes>
           <Footer />
         </BrowserRouter>
-
-      </AuthProvider>
-
-
-
+      
     </>
   )
 }

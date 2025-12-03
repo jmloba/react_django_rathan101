@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserPermissionsSerializer
 
 from rest_framework import generics
 from django.contrib.auth.models import User
@@ -23,10 +23,18 @@ class Protected_View(APIView):
   permission_classes=[IsAuthenticated]
   
   def get(self,request):
+    
     response ={
       'status':'Request was permitted'
     }
     return Response(response)
+class UserPermissionView(APIView):
+  permission_classes=[IsAuthenticated]
+
+  def get(self, request):
+    serializer = UserPermissionsSerializer(request.user)
+    return Response(serializer.data)
+  
       
       
     

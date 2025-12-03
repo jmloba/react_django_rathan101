@@ -41,6 +41,8 @@ axiosInstance.interceptors.response.use(
     async function(error){
         const originalRequest = error.config;
         if (error.response.status === 401 && !originalRequest.retry  ){
+
+            // This prevents infinite loops in case of persistent authentication issues.
             originalRequest.retry  = true    
             const refreshToken = localStorage.getItem('refreshToken')            
             try{

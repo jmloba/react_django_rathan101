@@ -31,6 +31,16 @@
 .card-record{
   display:inline-flex;
 }
+.card-line{
+  display: flex;
+  justify-content: space-between;
+}
+.card-line-group  {
+  display: flex;
+  gap:1em;
+}
+
+
 .card-record-data{
   color : blue;
   font-size: 18px;
@@ -41,7 +51,7 @@
 
 
 .card{
-    width:15em !important;
+    width:20em !important;
     /* gap:1em; */
     margin:15px;
     border-radius: 15px;

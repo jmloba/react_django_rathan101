@@ -11,6 +11,8 @@ activate virtualenv
 pip install django
 -install djangoframework
 pip install djangorestframework
+pip install django-allauth
+pip install requests
 
 -create project
 django-admin startproject myproject .
@@ -33,6 +35,7 @@ python manage.py startapp app_products
 python manage.py startapp app_employees
 python manage.py startapp app_students
 python manage.py startapp app_data
+python manage.py startapp app_user
 
 
 pip install django-rest-auth

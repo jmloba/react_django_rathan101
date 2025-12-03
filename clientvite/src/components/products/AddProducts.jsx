@@ -175,12 +175,12 @@ const AddProducts = () => {
     <>
       <div className="container">
         <div className="main-body">
-          <h2>Add Products Component</h2>
+          <h2>Add Products </h2>
           <div className="form-main">
             <form onSubmit={handleSubmit}>
               {/* ------ emp_id--------- */}
               <div className="form-group ">
-                <label htmlFor="" className='col-md-4'>Product Itemno </label>
+                <label htmlFor="" className='col-md-4'>ItemNo</label>
                 <input type="text"
                   className='form-control col-md-8'
                   name="product_itemno"
@@ -299,22 +299,14 @@ const AddProducts = () => {
 
             </form>
           </div>
+
+          {/* to show form values  ------------- */}
           <div className='form-values'>
             {Object.keys(formErrors).length === 0 && isSubmit ?
-              (
-                <div className="ui message success">
-                  data validated
-
-                </div>
-
-              ) : (
-                <pre>
-
-                  {JSON.stringify(formValues, undefined, 3)}
-                </pre>
-
-              )}
+              ( <div className="ui message success">   data validated  </div>) 
+              : (     <pre>  {JSON.stringify(formValues, undefined, 3)}</pre> )}
           </div>
+          {/* end show form values  ------------- */}
 
 
         </div>

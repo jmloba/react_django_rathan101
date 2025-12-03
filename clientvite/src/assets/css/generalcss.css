@@ -45,7 +45,7 @@ body{
 }
 .container-1{
   
-  background-color: rgb(134, 202, 95);
+  background-color: rgb(242, 243, 240);
   padding-top:1rem;
 }  
 .container-2{
@@ -77,7 +77,7 @@ color: brown !important;
   width:10rem;
 }
 .card{
-  /* width:30px; */
+  width:30px;
   margin: 10px 10px;
   padding : 1rem 1rem;
   background-color: antiquewhite;
@@ -168,8 +168,9 @@ color: brown !important;
 }
 /* modal */
 .modal-dialog{
-  background-color: rgba(243, 238, 235, 0.414);
+  background-color: rgba(168, 98, 54, 0.414);
   padding : 1em 1em;
+  max-width: fit-content;
   
 }
 
@@ -206,3 +207,9 @@ span{
   background-color: aquamarine;
 
 }
+.form-values{
+  background-color: rgb(200, 231, 250);
+  padding : 1rem 1rem;
+  border-radius: 10px;
+}
+

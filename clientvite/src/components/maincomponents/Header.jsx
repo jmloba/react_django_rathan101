@@ -5,16 +5,28 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../AuthProvider'
 import {useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
-import Navbar001 from '../navbar/navbar001'
+import Navbar001 from '../navbar/Navbar001'
 
 const Header = () => {
-  const { isLoggedIn,setIsLoggedIn} = useContext(AuthContext)
+   const {
+    isLoggedIn, setIsLoggedIn,
+    email ,setEmail,
+    theme, setTheme,
+    loggedInUser, setLoggedInUser,
+    permissions,setPermissions 
+  
+    } = useContext(AuthContext)
   const navigate = useNavigate()
   const handleLogout = ()=>{
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
+    localStorage.removeItem('loggedInUser')
+    localStorage.removeItem('permissions')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('user_id')
+    localStorage.removeItem('email')  
     setIsLoggedIn(false)
-    console.log ('logout pressed')
+    
     navigate('/login')
   }
 

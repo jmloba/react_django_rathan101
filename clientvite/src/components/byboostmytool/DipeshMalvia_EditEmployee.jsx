@@ -10,10 +10,7 @@ const DipeshMalvia_EditEmployee = () => {
 
   const params = useParams()
   const [departmentList, setDepartmentList] = useState([])
-
   const [initialData,setInitialData] = useState({})
-
-
   const [genderList, setGenderList] = useState([])
   const [formErrors, setFormErrors] = useState({})  // empty object
   const [isSubmit, setIsSubmit] = useState(false)
@@ -22,7 +19,9 @@ const DipeshMalvia_EditEmployee = () => {
 
   const initialValues = {
     emp_id: "",
-    emp_name: "",
+    firstname: "",
+    middlename: "",
+    lastname: "",
     email: "",
     deptname: '1',
     gender: '2',
@@ -175,7 +174,7 @@ const DipeshMalvia_EditEmployee = () => {
           setInitialData(response.data)
           setFormValues(response.data)
           
-          console.log('useEffect edit record :', response.data)
+          console.log('record to  edit :', response.data)
         } catch (error) {
           console.log('\n error (fetchProtectedData )fetching gender', error.response)
         }

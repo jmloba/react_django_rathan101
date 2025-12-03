@@ -31,21 +31,31 @@ INSTALLED_APPS = [
     # pip install djangorestframework
     'rest_framework',
     'rest_framework_simplejwt',
+    # 'rest_framework.authtoken',
+    
+    
     
     "corsheaders",
     'django_filters',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.facebook',
+
 
     'app_accounts',
     'app_products',
     'app_api',
     'app_employees',
-    'api_ViewSetsEmployees',
+    
     'app_todo',
     'app_students',
     'app_store',
     'app_condo',
     'app_product_invoices',
     'app_data',
+    'app_user',
 
 ]
 
@@ -58,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -156,6 +168,13 @@ CORS_ALLOWED_ORIGINS = [
 
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWS_CREDENTIALS = True
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',    
+    # 'allauth.account.auth_backends.AuthenticationBackend',
+]   
+
 
 REST_FRAMEWORK ={
     'DEFAULT_FILTER_BACKENDS':['django_filters.rest_framework.DjangoFilterBackend'],
@@ -163,12 +182,62 @@ REST_FRAMEWORK ={
     # JWT FOR LOGIN
      'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
         
-    
+
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+            # 'rest_framework.permissions.IsAuthenticated',
+            
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+            # 'rest_framework.permissions.AllowAny',
+        ],
+  'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ],
+
 }
+
+# Permisisions :
+# AllowAny
+# IsAuthenticated
+# IsAdminUser
+# IsAuthenticatedOrReadOnly
+
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
     # "ACCESS_TOKEN_LIFETIME": timedelta(seconds=10),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
 }
+
+LOGIN_REDIRECT_URL = '/callback/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': { 
+        'SCOPE': ['profile','email',],
+        'AUTH_PARAMS': {'access_type': 'online', },
+        'OAUTH_PKCE_ENABLED': True,
+        'FETCH_USER_INFO': True,
+
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile'],
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+        ]
+    }
+}
+SOCIALACCOUNTS_STORE_TOKEN = True

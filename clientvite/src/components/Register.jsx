@@ -9,6 +9,11 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 const Register = () => {
   const [username , setUsername] = useState('')
   const [email, setEmail] = useState('')
+
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+
+
   const [password, setPassword] = useState('')
   const [errors,setErrors]= useState({})
   const [success, setSuccess] = useState(false)
@@ -20,13 +25,19 @@ const Register = () => {
   const handleRegistration= async(e)=>{
     e.preventDefault()
     setLoading(true)
+
     console.log ('username ', username)
     console.log ('email  ', email)
     setErrors({})
     const userData ={
-      username, email,password
+      username: username,
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      password: password, 
     }
-    console.log('userdata', userData)
+    console.log('passed userdata to backend ', userData)
+
     try{
 
       const response = await axios.post('http://127.0.0.1:8000/api/v1/register/',userData)
@@ -38,10 +49,12 @@ const Register = () => {
       setSuccess(true)
       
     }catch(error){
-      setErrors(error.response.data)
-      console.error('Registration error :',errors);
-      
-
+      if (error.response) {
+             console.error('Registration error details:', error.response.data); // Log the response data directly
+             setErrors(error.response.data);
+        } else {
+             console.error('Network or other error:', error.message);
+        }
     }finally{
       setLoading(false)
     }
@@ -55,30 +68,61 @@ const Register = () => {
       <div className="row justify-content-center">
         <div className="col-md-6 p-5 bg-light-dark rounded" >
           <h3 className='text-light text-center form-title'>Create an Account</h3>
-          <form action="" onSubmit={handleRegistration}>
-            <div className="mb-3">
-              <input type="text" className='form-control ' placeholder='Enter Username' value={username} onChange={(e)=> setUsername(e.target.value)}/>
+          <form  onSubmit={handleRegistration}>
+            {/* ---- username----  */}
+            <div className="row mb-3">
+              <input type="text" className='form-control ' 
+              placeholder='Enter Username' value={username} 
+              onChange={(e)=> setUsername(e.target.value)}/>
               <small>{errors.username && 
                 <div className='text-danger'>{errors.username}</div>}
               </small>
 
             </div>
-            <div className='mb-3'>
+            {/* ---- names ----  */}
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <input type="text" className='form-control ' 
+                placeholder='First Name' value={firstName} 
+                onChange={(e)=> setFirstName(e.target.value)}/>
+                <small>{errors.firstName && 
+                  <div className='text-danger'>{errors.firstName}</div>}
+                </small>
+
+              </div>
+          
+               <div className="col-md-6">
+                <input type="text" className='form-control ' 
+                placeholder='Last Name' value={lastName} 
+                onChange={(e)=> setLastName(e.target.value)}/>
+                <small>{errors.lastName && 
+                  <div className='text-danger'>{errors.lastName}</div>}
+                </small>
+
+              </div>
+
+
+            </div>
+            {/* ---- email----  */}
+            <div className='row mb-3'>
               <input type="email" className='form-control mb-3' placeholder='Enter Email' value ={email} onChange={(e)=>setEmail(e.target.value)}/>
               <small>
                 {errors.email && <div className='text-danger'>{errors.email}</div>}
               </small>
             </div>
-            <div className='mb-3'>
+            {/* ---- password----  */}
+            <div className='row mb-3'>
               <input type="password" className='form-control ' placeholder='Enter Epassword' value={password} onChange={(e)=>setPassword(e.target.value)}/>
               <small>
                 {errors.password && <div className='text-danger'>{errors.password}</div>}
               </small>
 
             </div>
+
+
             {success && 
             <div className="alert alert-success">
-              <strong>Registration </strong> 
+              <strong>Registration Successful </strong> 
               
               </div>
             }
