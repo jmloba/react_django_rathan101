@@ -10,6 +10,7 @@ class GenderSerializers(serializers.ModelSerializer):
   class Meta:
     model = Gender
     fields = '__all__'
+    
 class DepartmentSerializers(serializers.ModelSerializer):
   class Meta:
     model = Department
@@ -60,7 +61,7 @@ class EmployeeSerializers(serializers.ModelSerializer):
     return super().to_internal_value(data)
 
   def create(self, validated_data):
-    # Your existing create method works fine after the above change
+    
     salary_data = validated_data.pop('employee_salary', [])
     employee_instance = Employee.objects.create(**validated_data)
     for salary_item in salary_data:

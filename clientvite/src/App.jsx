@@ -1,10 +1,9 @@
 
 
 
-
-
 import "../src/assets/css/var.css"
 import "../src/assets/css/generalcss.css"
+
 
 import { BrowserRouter  ,Navigate , Route, Routes  } from 'react-router-dom'
 
@@ -22,7 +21,8 @@ import Main from './components/Main'
 
 import Register from './components/Register'
 import Login from './components/Login'
-import AuthProvider from './AuthProvider'
+
+
 
 import Dashboard        from './components/dashboard/Dashboard'
 import PrivateRoute     from './PrivateRoute'
@@ -35,8 +35,8 @@ import SampleDataTable from './components/datatable/SampleDataTable'
 
 import Condo        from './components/condo/Condo'
 import CondoAdd     from './components/condo/CondoAdd'
-import Condo1       from './components/condo/Condo1'
-import Condo2       from './components/condo/Condo2'
+
+
 
 import AddStudent   from './components/students/AddStudent'
 import ViewStudent  from './components/students/ViewStudent'
@@ -79,33 +79,42 @@ import CallAFunction      from './components/functions/CallAFunction'
 import UserProfile from './components/user/UserProfile'
 import Profile from './components/pages/Profile'
 import { hasPermission } from './components/functions/Permission'
-import { useState,useContext } from 'react'
-import { AuthContext } from './AuthProvider'
+
+
 import ProtectedRoute     from './components/pages/ProtectedRoute'
 import InvoiceEntry001 from "./components/products/InvoiceEntry001"
 import InvoiceSummary from "./components/products/InvoiceSummary"
 import EmployeeAddWithImage from "./components/employees/EmployeeAddWithImage"
+import EmployeesVer01 from "./components/employees/EmployeesVer01"
+
+import { useState,useContext } from 'react'
+
+
+import { AuthContext } from "./AuthProvider"
+
+
 
 
 function App() {
- const {
-     isLoggedIn, setIsLoggedIn,
-     email ,setEmail,
-     theme, setTheme,
-     loggedInUser, setLoggedInUser,
-     permissions,setPermissions 
-      
- 
-   } = useContext(AuthContext)
 
-   const updateStatus=()=>{
+  const {
+       isLoggedIn, setIsLoggedIn,
+       email, setEmail,
+       theme, setTheme,
+       loggedInUser, setLoggedInUser,
+       permissions, setPermissions
+   
+  } = useContext(AuthContext)
+
+  const updateStatus=()=>{
     setIsLoggedIn((prev)=>!prev)
 
-   }
+  }
 
   return (
     <>
-      
+    
+
         <BrowserRouter>
           <Header />
 
@@ -115,44 +124,23 @@ function App() {
             <Route path='/' exact element={<Main/>} />
             <Route path='/unauthorized' element={<UnauthorizedPage />} />
 
-            <Route path='/login' element={<Login updateStatus={updateStatus} />} />
+            <Route path='/login' element={<Login />} />
 
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path='/register' element={<Register />} />
 
 
-            {/* <Route path='/books' 
-              element={
-                <PrivateRoute isLoggedIn={isLoggedIn}>
-                  <Books/>
-                </PrivateRoute>
-              } /> */}
 
             <Route element={<ProtectedRoute isLoggedIn={isLoggedIn}/>} >
               <Route path='/books' exact element={<Books />} />
               <Route path='/books-add' exact element={<BooksAdd />} />
-
             </Route>  
-
-            
-
             <Route element={<ProtectedRoute isLoggedIn={isLoggedIn}/>} >
-            
-              <Route path='/condobill' element={<Condo />} />
-              
             </Route>            
-
-
-
-            
-
             <Route path='/callafunction' element={<CallAFunction />} />
-
-            <Route path='/condobill1' element={<Condo1 />} />
-            <Route path='/condobill2' element={<Condo2 />} />
+            <Route path='/condo' element={<Condo />} />
             <Route path='/condo-add' element={<CondoAdd />} />
-            {/* <Route path='/contacts' element={ <Contacts/> }/> */}
-
+                                                                                                                                                                                                                                              
             <Route path='/products' element={<Products />} />
             <Route path='/addproduct' element={<AddProducts />} />
             <Route path='/editproduct/:id' element={<EditProducts />} />
@@ -174,6 +162,8 @@ function App() {
             <Route path='/dipeshmalvia-editemployee/:id' element={<DipeshMalvia_EditEmployee />} />
 
             <Route path='/employees' element={<Employees />} />
+            <Route path='/employees-ver01' element={<EmployeesVer01 />} />
+
             <Route path='/arin-employees' element={<ArinEmployees />} />
 
             
@@ -199,9 +189,10 @@ function App() {
             <Route path='/profile' element={<Profile />} />
 
           </Routes>
+          
           <Footer />
         </BrowserRouter>
-      
+    
     </>
   )
 }

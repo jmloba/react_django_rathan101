@@ -36,7 +36,9 @@ const Header = () => {
     <Navbar001/>
 
     <nav className='navbar      pt-3 pb-3 align-items-start'>     
-       <Link to="/" className='navbar-brand text-light' >Stock Prediction portal</Link>
+       <Link to="/" className='navbar-brand text-light' >Stock Prediction portal </Link>
+       
+       
       <div>
         {isLoggedIn ? (
           <>
@@ -45,6 +47,8 @@ const Header = () => {
           <Button  text='dashboard' class='btn-info' url='/dashboard'/>
                    &nbsp;
            <button className='btn btn-outline-danger' onClick={handleLogout}> Logout</button>
+           <button type='text ' className='text-light' disabled >Welcome {loggedInUser}</button>
+                      
           </>
 
         ):(

@@ -1,23 +1,24 @@
 import React from 'react'
 import { AuthContext } from '../../AuthProvider'
 import { useState, useContext, useEffect } from 'react'
+
+
 export  function  hasPermission (checkValues)  {
  const {
     isLoggedIn, setIsLoggedIn,
     email ,setEmail,
     theme, setTheme,
     loggedInUser, setLoggedInUser,
-    permissions,setPermissions 
+    permissions,setPermissions ,
+    user_Id,setUser_Id
     } = useContext(AuthContext)
 
-    
-  console.log(' authcontext -> permissions type :', typeof(permissions))
+  // if permissions is null or undefined.
+  const effectivePermissions = permissions ?? {}; 
 
-
-   const valuesArray = Object.values(permissions).includes(checkValues);
-   console.log('Permission :valuesArray : ', valuesArray)
-   console.log('function permission -values array ', typeof ( valuesArray),  'search :', checkValues) 
-
+  const valuesArray = Object.values(effectivePermissions).includes(checkValues); 
+  
+  
   return valuesArray
 
 }

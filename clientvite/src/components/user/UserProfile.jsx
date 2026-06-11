@@ -5,8 +5,10 @@ import { AuthContext } from '../../AuthProvider';
 const UserProfile = () => {
   const {
     isLoggedIn, setIsLoggedIn,
+    email, setEmail,
     theme, setTheme,
-    loggedInUser, setLoggedInUser
+    loggedInUser, setLoggedInUser,
+    permissions, setPermissions
 
   } = useContext(AuthContext)
   return (

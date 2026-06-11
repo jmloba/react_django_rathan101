@@ -7,8 +7,9 @@ import axios from 'axios'
 import axiosInstance from '../AxiosInstance'
 
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../AuthProvider'
+
 import "../assets/css/formcss.css"
+import { AuthContext } from '../AuthProvider';
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -17,23 +18,24 @@ const Login = () => {
   const navigate = useNavigate()
   const [errors, setErrors] = useState('')
   const [user, setUser] = useState(null);
+  const [afterLogin,setAfterLogin]= useState('')
+
+  
   const {
-    isLoggedIn, setIsLoggedIn,
-    email ,setEmail,
-    theme, setTheme,
-    loggedInUser, setLoggedInUser,
-    permissions,setPermissions ,
-    user_Id,setUser_Id
-     
+     isLoggedIn,setIsLoggedIn,
+        email ,setEmail,
+        theme ,setTheme,
+        loggedInUser,setLoggedInUser,
+        permissions,setPermissions,
+        user_Id,setUser_Id
 
   } = useContext(AuthContext)
 
-  const [afterLogin, setAfterLogin] = useState(false)
-
+  
   const handleLogin = async (e) => {
     e.preventDefault()
     setLoading(true)
-    console.log('check if already loggedin', isLoggedIn)
+    
 
     const userData = { username, password }
     console.log('user input: ', userData)
@@ -68,9 +70,7 @@ const Login = () => {
       const fetchProtectedData = async () => {
         try {
           const token = localStorage.getItem('accessToken')
-          // check url from app_api
-          // path('user-data/', views.get_user_data, name='user_data'),
-          const response_user = await axiosInstance.get('/user-data/',
+                const response_user = await axiosInstance.get('/user-data/',
             {
               headers: {
                 "Content-Type": "application/json",
@@ -80,6 +80,8 @@ const Login = () => {
           )
           console.log('1.user data -->>',response_user.data)
           setEmail(response_user.data.email)
+          setUser_Id(response_user.data.id)
+          localStorage.setItem('user_id',response_user.data.id)
           // navigate('/')
           
         } catch (error) {
@@ -89,6 +91,7 @@ const Login = () => {
       fetchProtectedData();
     }, [afterLogin]
   )
+
 
   useEffect(
     () => {
@@ -112,6 +115,7 @@ const Login = () => {
          
           console.log('2. is logged in -->', isLoggedIn)
           navigate('/')
+
         } catch (error) {
           console.error('error getting userdata', error.response_perm)
         }

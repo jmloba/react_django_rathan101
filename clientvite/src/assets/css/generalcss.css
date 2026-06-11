@@ -47,6 +47,7 @@ body{
   
   background-color: rgb(242, 243, 240);
   padding-top:1rem;
+  flex :1;
 }  
 .container-2{
   flex:1;
@@ -68,10 +69,17 @@ color: brown !important;
   display : flex;
 }
 .main-body{
-  background-color: rgb(207, 217, 190);
+  /* background-color: rgb(207, 217, 190); */
   margin :.5em 1em; 
   padding:1em 1em;
   flex:1;
+}
+.main-body-1{
+  background-color : rgb(244, 247, 240);
+  display: flex;
+  
+  
+  
 }
 .img-books{
   width:10rem;
@@ -212,4 +220,7 @@ span{
   padding : 1rem 1rem;
   border-radius: 10px;
 }
-
+.condo-payment-data,
+.condo-bill-data{
+  background-color: #e8f1f2;
+}

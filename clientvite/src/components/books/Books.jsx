@@ -4,18 +4,23 @@ import { AuthContext } from '../../AuthProvider';
 import axiosInstance from '../../AxiosInstance';
 import Button from '../Button'
 import BooksAdd from './BooksAdd';
+import DataTable from 'react-data-table-component';
+import { dataTableStyle } from '../functions/DataTableStyle';
 import {FetchPermissions} from '../permissions/FetchPermissions'
+
 
 import { hasPermission } from '../functions/Permission'
 
 const Books = () => {
   const [list,setList] = useState([])
+  const [records, setRecords] = useState(list)
+  
   const {isLoggedIn, setIsLoggedIn,theme,setTheme} = useContext(AuthContext)
   const [permissions, setPermissions] = useState([]);
   const config ={'responseType':'blob' }
+  const [search, setSearch] = useState('')
 
   const handleDelete= async (id)=>{
-      
       console.log('delete pressed', id)
       try{
         const post = await axiosInstance.delete(`/books/${id}/`)
@@ -24,9 +29,33 @@ const Books = () => {
       }catch(error){
         console.log(error)
       }
-
-
     }
+  const columns = [
+    {
+      name: "#",
+      selector: row => row.id,
+      sortable: true
+
+    }, {
+
+      name: "Cover",
+      selector: row => <img height={50} width={50}
+        style={{
+          borderRadius: '50%',
+          justifyItems: 'center',
+          alignItems: 'center',
+          border: '2px solid #b06311ff'
+        }}
+        src={row.cover} />
+    },
+      {
+      name: "title",
+      selector: row => row.title,
+      sortable: true
+
+    },
+
+  ]    
 
   useEffect( 
       ()=>{
@@ -34,6 +63,7 @@ const Books = () => {
       try{
         const response = await axiosInstance.get('/books/')
         setList(response.data)
+        setRecords(response.data)
         console.log('response fetching the data:',response.data)
       }catch(error){
         console.log('books', error.response.data)
@@ -44,7 +74,19 @@ const Books = () => {
     },[]
   )    
 
+   useEffect(() => {
+      console.log('search value', search)
+      const result = list.filter((item) => {
+        return (item.title.toLowerCase().match(search.toLowerCase())
+          
+        )
+      })
+      setRecords(result)
   
+  
+    }, [search]
+  
+    )
 
   return (
     <>
@@ -70,8 +112,44 @@ const Books = () => {
           )
           }
         </div>
+        <div className="data-table">
+        <DataTable id='table-DataTable'
+              columns={columns}
+              data={records}
+              customStyles={dataTableStyle}
+              // conditionalRowStyles={conditionalRowStyles}
+              pagination
+              // selectableRows
+
+              fixedHeader
+              selectableRowsHighlight
+              highlightOnHover
+              actions={
+                <>
+
+                  {/* <button className='btn btn-success' onClick={handleExportToPdf}>Export to Pdf</button>
+                  <button className='btn btn-success' onClick={handleExportToCsv}> Export to Csv</button>
+                  <button className='btn btn-success' onClick={handleExportToExcel}> Export to Excel</button>
+                  {hasPermission('app_products.add_products') &&
+                    <button className='btn btn-primary ' onClick={handleAddProduct}> Add Product</button>
+                  } */}
+                </>
+              }
+              subHeader
+              subHeaderComponent={
+                <input type='text'
+                  className='form-control'
+                  value={search}
+                  placeholder='Search...'
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+
+              }
+              subHeaderAlign='left'
+            />
+        </div>
         
-        <div className='data-list'>
+        {/* <div className='data-list'>
           {
             list.map((book, index)=>{
               return(
@@ -95,7 +173,7 @@ const Books = () => {
           }
 
 
-        </div>
+        </div> */}
       </div>
     </div>
     </>

@@ -2,12 +2,10 @@ from django.urls import path, include
 from app_accounts import views as UserView 
 from api_ViewSetsEmployees import views as Employee_Viewset
 from . import views
+
 from app_api import views as api_ViewSet
 from app_api.views import studentsView, studentDetailView, StoreMasterFile
 from app_user import views  as app_user_view 
-
-
-
 
 # from app_projects import views as Project_Viewset
 
@@ -22,6 +20,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 router.register('gender', api_ViewSet.GenderViewset, basename='gender')
+
 router.register('employees', api_ViewSet.EmployeeViewset, basename='employees')
 router.register('empsalary', api_ViewSet.EmployeeSalaryViewset, basename='empsalary')
 
@@ -29,6 +28,7 @@ router.register('department', api_ViewSet.DepartmentViewset, basename='departmen
 
 router.register('books', api_ViewSet.BookViewSet, basename='book')
 router.register('condobill', api_ViewSet.CondoBillViewSet, basename='condo')
+router.register('condopayment', api_ViewSet.CondoPaymentViewSet, basename='condopayment')
 
 router.register('products', api_ViewSet.ProductViewSet , basename='products')
 router.register('productcategory', api_ViewSet.ProductCategoryViewSet , basename='productcategory')

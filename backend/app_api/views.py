@@ -18,8 +18,10 @@ from app_employees.serializers import EmployeeSerializers,EmployeeSalarySerializ
 from app_employees.filters import EmployeeFilter, EmployeeSalaryFilter, GenderFilter, DepartmentFilter
 
 
-from app_condo.models import CondoBill
-from app_condo.serializers import CondoBillSerializers
+from app_condo.models import CondoBill, CondoPayment
+from app_condo.serializers import CondoBillSerializers, CondoPaymentSerializers
+
+
 
 from app_data.models import NextDataControl
 from app_data.serializers import NextDataControlSerializers  
@@ -39,7 +41,7 @@ from app_students.models import Student
 from app_students.serializers import StudentSerializer
 
 
-from rest_framework import viewsets, status 
+from rest_framework import viewsets, status ,permissions
 from rest_framework import filters
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, action, permission_classes
@@ -109,18 +111,9 @@ class StoreMasterFile(APIView):
 
 
 class CondoBillViewSet(viewsets.ModelViewSet):
-  queryset = CondoBill.objects.all().order_by('statement_date')
+  queryset = CondoBill.objects.all().order_by('bill_date')
   serializer_class = CondoBillSerializers
 
-  def post(self, request, *args,  **kwargs):
-    statement_date = request.data['statement_date']
-    statement_amount = request.data['statement_amount']
-    CondoBill.objects.create(
-      
-      statement_date= statement_date, 
-      statement_amount=statement_amount
-      )
-    return HttpResponse({'message':'CondoBill created'}, status = 200)
 
 class PostUserWritePermission(BasePermission):
   message = 'Editing is for the author only'
@@ -364,7 +357,7 @@ class EmployeeViewset(viewsets.ModelViewSet):
   queryset = Employee.objects.all().order_by('emp_id')
   serializer_class = EmployeeSerializers
   filterset_class = EmployeeFilter
-  permission_classes = [IsAuthenticated]
+  # permission_classes = [IsAuthenticated]
 
 
 #http://127.0.0.1:8000/api/v1/empsalary/?sal_basic_min=15000&sal_basic_max=19000
@@ -376,3 +369,14 @@ class EmployeeSalaryViewset(viewsets.ModelViewSet):
 
 
 
+class CondoBillViewSet(viewsets.ModelViewSet):
+  queryset = CondoBill.objects.all().order_by('bill_date')
+  serializer_class = CondoBillSerializers
+  permission_classes = [permissions.IsAuthenticated] 
+
+  def perform_create(self, serializer):
+    serializer.save(user=self.request.user) # Assign the current authenticated  
+class CondoPaymentViewSet(viewsets.ModelViewSet):
+  queryset = CondoPayment.objects.all().order_by('payment_date')
+  serializer_class = CondoPaymentSerializers
+  permission_classes = [permissions.IsAuthenticated] # Add this line

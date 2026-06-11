@@ -90,6 +90,7 @@ const CondoAdd = () => {
         <h2>Add Condo</h2>
               <p>Logged in user : {loggedInUser}</p>
       </div>
+      
 
       <div className="container">
         <form action="" method='POST' onSubmit={handleCondoSave}>

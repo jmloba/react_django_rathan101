@@ -6,12 +6,13 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-92ez+59!&je(=3bu!b7c+yn6*f*ct-fnrwcygqb6_&k^mau4jv'
-
+# SECRET_KEY = 'django-insecure-92ez+59!&je(=3bu!b7c+yn6*f*ct-fnrwcygqb6_&k^mau4jv'
+SECRET_KEY =config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -163,10 +164,12 @@ STATICFILES_DIRS =[
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
 
-]
+
+# ]
+CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ALLOWS_CREDENTIALS = True
 

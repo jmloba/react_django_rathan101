@@ -4,8 +4,8 @@ import React from 'react'
 export const dataTableStyle = {
     headCells: {
       style: {
-        fontWeight: "600",
-        fontSize: "20px",
+        fontWeight: "500",
+        fontSize: "16px",
         backgroundColor: '#2e2c03ff',
         color: "white",
         padding: "5px 0px",
@@ -26,7 +26,7 @@ export const dataTableStyle = {
         backgroundColor: '#c7e0e9f9',
     
         borderColor: '#ba4545ff',
-        fontSize: '16px',
+        fontSize: '14px',
         
       
         

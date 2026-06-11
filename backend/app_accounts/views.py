@@ -35,7 +35,3 @@ class UserPermissionView(APIView):
     serializer = UserPermissionsSerializer(request.user)
     return Response(serializer.data)
   
-      
-      
-    
-  

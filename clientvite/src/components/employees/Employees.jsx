@@ -28,14 +28,24 @@ import { hasPermission } from '../functions/Permission'
 
 const Employees = () => {
   const [list, setList] = useState([])
-  const { isLoggedIn, setIsLoggedIn, theme, setTheme } = useContext(AuthContext)
+  const {
+    isLoggedIn, setIsLoggedIn,
+    email ,setEmail,
+    theme, setTheme,
+    loggedInUser, setLoggedInUser,
+    permissions,setPermissions ,
+    user_Id,setUser_Id
+
+  } = useContext(AuthContext)
   const config = { 'responseType': 'blob' }
   const [employees, setEmployees] = useState([])
   const [records, setRecords] = useState(employees)
   const [formErrors, setFormErrors] = useState({})  // empty object
   const [isSubmit, setIsSubmit] = useState(false)
   const [editData, setEditData] = useState({})
+
   const [search, setSearch] = useState('')
+  
   const [genderList, setGenderList] = useState([])
   const [departmentList, setDepartmentList] = useState([])
 
@@ -61,6 +71,7 @@ const Employees = () => {
             RemoveDetails(row.id)
           }}>delete</button>  
           }
+
           {hasPermission("app_employees.change_employee") &&
           <button type='button'
             className='me-3 btn btn-primary ml-auto d-block mb-2'
@@ -103,7 +114,8 @@ const Employees = () => {
     {
       name: "Email",
       selector: row => row.email,
-      sortable: true
+      sortable: true,
+      width:'20em',                  
     },
 
     {
@@ -133,7 +145,6 @@ const Employees = () => {
   const navigate = useNavigate()
   const initialValues = {
     id: '',
-
     emp_id: '',
     firstname: '',
     middlename: '',
@@ -200,7 +211,10 @@ const Employees = () => {
 
   }
 
+  const handleRecordSelect =( row)=>{
+    console.log ('Row Clicked :', row)
 
+  }
 
   const handleExportToExcel = (e) => {
     e.preventDefault()
@@ -253,7 +267,6 @@ const Employees = () => {
   
 
   const RemoveDetails = async (id) => {
-
     if (window.confirm(`Are you sure you want to delete record ${id}`)) {
       try {
         const response = await axiosInstance.delete(`/employees/${id}/`)
@@ -263,19 +276,17 @@ const Employees = () => {
         console.log('error in deletion :', error.message)
       }
     }
-
-
   }
+
+
   const handleEditButton = async (id, e) => {
     e.preventDefault()
     console.log(`edit button pressed  ${id}`)
     try {
-
       const response_edit = await axiosInstance.get(`/employees/${id}`)
       setEditData(response_edit.data)
       console.log('record to edit:', response_edit.data)
       // fillEditVariables()
-
     } catch (error) {
       console.log('error edit button pressed', error.message)
     }
@@ -283,6 +294,14 @@ const Employees = () => {
   }
 
 
+
+//   useEffect(()=>{
+//     setLoggedInUser(localStorage.getItem('loggedInUser')) 
+//     setPermissions(localStorage.getItem('permissions'))
+//     setUser_Id(localStorage.getItem('user_id'))
+//     setIsLoggedIn(true)
+//     },[]
+// )
   useEffect(
     () => {
       const fetchProtectedData = async () => {
@@ -304,13 +323,8 @@ const Employees = () => {
       const firstNameMatch = item.firstname.toLowerCase().includes(search.toLowerCase());
       const lastNameMatch = item.lastname.toLowerCase().includes(search.toLowerCase());
       return firstNameMatch || lastNameMatch
-
-
-
     })
     setRecords(result)
-
-
   }, [search]
 
   )
@@ -348,6 +362,7 @@ const Employees = () => {
               // conditionalRowStyles={conditionalRowStyles}
               pagination
               selectableRows
+              onRowClicked={handleRecordSelect}
 
               fixedHeader
               selectableRowsHighlight
@@ -436,27 +451,13 @@ const Employees = () => {
 
                     </div>
                     }
-
-
-                    
-                    
-                  
                     {/* --- End Salary Fields --- */}
                   </div>
-
-
-
-
-
-
-
-
                 </div>
               </div>
             )
           }
           )}
-
         </div>
 
       </div>

@@ -19,9 +19,7 @@ const EmployeeAdd = () => {
 
   const [formImage, setFormImage] = useState('');
   const [formErrors, setFormErrors] = useState({})  // empty object
-
   const initialValues = {
-
     emp_id: '',
     firstname: '',
     middlename: '',
@@ -32,27 +30,18 @@ const EmployeeAdd = () => {
     sal_basic: 0,
     sal_housing: 0,
     sal_transportation: 0
-
-
   }
-
   const [formValues, setFormValues] = useState(initialValues)
-
-
   const resetFunction = () => {
     setFormValues({
-     
     emp_id: '',
     firstname: '',
     middlename: '',
     lastname: '',
-
     email: '',
-
     dept: '',
     gender: '',
-
-    sal_basic: '0',
+    sal_basic: 0,
     sal_housing:0,
     sal_transportation: 0
 
@@ -138,6 +127,28 @@ const EmployeeAdd = () => {
     if (Object.keys(formErrors).length === 0) {
       setIsSubmit(true)
 
+  
+        const emailToCheck = String(formValues.email || '').trim();
+        
+        // --- ADD CUSTOM EMAIL CHECK HERE ---
+        try {
+            // Use the EmployeeViewset endpoint to filter by the email address
+            const checkResponse = await axiosInstance.get(`/employees/?email=${emailToCheck}`);
+            
+            // DRF filterset usually returns a 'count' or an array 'results'
+            // If the results array is not empty, the email exists.
+            if (checkResponse.data.results && checkResponse.data.results.length > 0) {
+                setFormErrors(prev => ({ ...prev, email: 'This email address is already registered.' }));
+                setIsSubmit(false);
+                return; // Stop submission
+            }
+        } catch (error) {
+            console.error('Error checking email existence:', error);
+            // Continue if the check fails for some reason (e.g., network error)
+        }
+        // --- END CUSTOM EMAIL CHECK ---
+        
+
       const payload = {
             emp_id       : String(formValues.emp_id || '').trim(),
             firstname    : String(formValues.firstname || '').trim(),
@@ -172,6 +183,14 @@ const EmployeeAdd = () => {
         navigate('/employees')
       } catch (error) {
         console.error('Error submitting employee and salary data:', error.response ? error.response.data : error.message);
+               
+            // --- ADD THIS ERROR HANDLING ---
+            if (error.response && error.response.data.email) {
+                // DRF typically returns {'email': ['This field must be unique.']}
+                const emailErrorMsg = error.response.data.email[0] || 'This email is invalid.';
+                setFormErrors(prev => ({ ...prev, email: emailErrorMsg }));
+                setIsSubmit(false); // Make sure to stop submission state if needed
+            }
         // Handle errors
       }
 
@@ -224,7 +243,7 @@ const EmployeeAdd = () => {
             <form onSubmit={handleSubmit} enctype="multipart/form-data">
               {/* empid */}
               <div className="row">
-                <dif className="form-group">
+                <div className="form-group">
                   <label htmlFor="emp_id" className='col-md-4'>Employee Id*</label>
                   <input type="text"
                     placeholder='Enter Employee Id'
@@ -238,12 +257,12 @@ const EmployeeAdd = () => {
                   </div>
 
 
-                </dif>
+                </div>
               </div>
               {/* firstname, middlename, lastname  rows */}
               <div className="row">
                 {/* firstname */}
-                <dif className="form-group col-md-4">
+                <div className="form-group col-md-4">
                   <label htmlFor="firstnamne" className='col-md-4'>Firstname*</label>
                   <input type="text"
                     placeholder='First Name'
@@ -258,7 +277,7 @@ const EmployeeAdd = () => {
 
 
 
-                </dif>
+                </div>
 
 
                 {/* middlename */}
@@ -280,7 +299,7 @@ const EmployeeAdd = () => {
                 </div>
 
                 {/* lastname */}
-                <dif className="form-group col-md-4">
+                <div className="form-group col-md-4">
                   <label htmlFor="lastname" className='col-md-4'>last Name*</label>
                   <input type="text"
                     placeholder='Middle Name'
@@ -294,7 +313,7 @@ const EmployeeAdd = () => {
                   </div>
 
 
-                </dif>
+                </div>
               </div>
               {/* email,dept,gender row */}
               <div className="row">

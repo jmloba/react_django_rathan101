@@ -20,10 +20,6 @@ class Department(models.Model):
     return self.deptname  
   
 
-
-
-
-
 class Employee(models.Model):
   emp_id = models.CharField(max_length=20, unique=True) # employeeno
   lastname = models.CharField( max_length=50,null=False,blank=False)
@@ -32,7 +28,7 @@ class Employee(models.Model):
    # to link to foreignkey
   deptname =models.ForeignKey(Department, on_delete=models.CASCADE,   blank=False, null=False)
   designation  = models.CharField(max_length=50,null=True,blank=True)
-  email = models.EmailField(blank=True, null=True)
+  email = models.EmailField(blank=False, null=False, unique=True , default="test@1.com")
   gender = models.ForeignKey(Gender, on_delete=models.CASCADE, blank=True, null=True)
   image = models.ImageField(blank=True, null=True, upload_to='employee/')
   def __str__(self):

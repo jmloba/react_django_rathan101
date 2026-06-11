@@ -2,6 +2,7 @@ import axios from 'axios'
 
 
 const baseURL =import.meta.env.VITE_BACKEND_BASE_API
+
 const axiosInstance = axios.create(
     {
         baseURL :baseURL,
@@ -9,15 +10,14 @@ const axiosInstance = axios.create(
             'Content-Type':'application/json'
         }
 
-    }
-)
-
+    })
 
 //request interceptors
 axiosInstance.interceptors.request.use(
     function(config){
         console.log('request without header=>>>',config)
         const accessToken = localStorage.getItem('accessToken')
+
         // console.log('accesstoken :', accessToken)
         if (accessToken){
             config.headers['Authorization']= `Bearer ${accessToken}` 
@@ -41,15 +41,12 @@ axiosInstance.interceptors.response.use(
     async function(error){
         const originalRequest = error.config;
         if (error.response.status === 401 && !originalRequest.retry  ){
-
-            // This prevents infinite loops in case of persistent authentication issues.
+          // This prevents infinite loops in case of persistent authentication issues.
             originalRequest.retry  = true    
             const refreshToken = localStorage.getItem('refreshToken')            
             try{
                 const response = await axiosInstance.post('token/refresh/', {refresh: refreshToken}   )
-
                 console.log('to replace response new :', response.data.access)
-                
                 localStorage.setItem('accessToken',response.data.access)
                 originalRequest.headers['Authorization']= `Bearer ${response.data.accessToken}`
                 return axiosInstance(originalRequest)

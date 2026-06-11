@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../../AuthProvider'
 import { useNavigate } from 'react-router-dom'
+
 import { hasPermission } from '../functions/Permission'
 
 
@@ -13,10 +14,11 @@ import { hasPermission } from '../functions/Permission'
 const navbar001 = () => {
   const {
     isLoggedIn, setIsLoggedIn,
-    email, setEmail,
+    email ,setEmail,
     theme, setTheme,
     loggedInUser, setLoggedInUser,
-    permissions, setPermissions
+    permissions,setPermissions ,
+    user_Id,setUser_Id
 
   } = useContext(AuthContext)
 
@@ -32,13 +34,20 @@ const navbar001 = () => {
     localStorage.removeItem('email')  
 
 
+    
     setIsLoggedIn(false)
     console.log('logout pressed')
     navigate('/login')
   }
 
+//   useEffect(() => {
+//          setLoggedInUser(localStorage.getItem('loggedInUser')) 
+//          setPermissions(localStorage.getItem('permissions'))
+//          setUser_Id(localStorage.getItem('user_id'))
 
-  console.log('test  -->> ', hasPermission("app_api.view_books"));
+//   }, [isLoggedIn]
+// );    
+  
 
   return (
     <>
@@ -90,9 +99,14 @@ const navbar001 = () => {
                             {hasPermission("app_employees.view_employee") &&
                           <li><Link className="dropdown-item" to="/employees">Employee list -using datatable ('/employees')</Link>  </li>
                             }
-                            {hasPermission("app_employees.add_employee") &&
-                          <li><Link className="dropdown-item" to="/employee-add">Add Employees </Link></li>
+                          {hasPermission("app_employees.view_employee") &&
+                          <li><Link className="dropdown-item" to="/employees-ver01">Employee Ver 01</Link>  </li>
                             }
+
+
+                            {/* {hasPermission("app_employees.add_employee") &&
+                          <li><Link className="dropdown-item" to="/employee-add">Add Employees </Link></li>
+                            } */}
                           <li><hr className="dropdown-divider" /></li>
                         </ul>
                       </li>
@@ -102,9 +116,8 @@ const navbar001 = () => {
                           Condo
                         </Link>
                         <ul className="dropdown-menu">
-                          <li><Link className="dropdown-item" to="/condobill">Condo</Link></li>
-                          <li><Link className="dropdown-item" to="/condobill1">Condo1 - modal not finished </Link></li>
-                          <li><Link className="dropdown-item" to="/condobill2">Condo2  - modal not finished</Link></li>
+                          {hasPermission("app_condo.view_condobill") && <li><Link className="dropdown-item" to="/condo">Condo</Link></li>                     }    
+                          
                           <li><hr className="dropdown-divider" /></li>
                           <li><Link className="dropdown-item" to="/condo-add">CondoAdd</Link></li>
                         </ul>
